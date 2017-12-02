@@ -1,4 +1,4 @@
-@include('Admin.Common._meta');
+@include('Admin.Common._meta')
 
 <title>新增文章 - 资讯管理 - H-ui.admin v3.1</title>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
@@ -130,7 +130,7 @@
 </article>
 
 <!--_footer 作为公共模版分离出去-->
-@include('Admin.Common._footer');
+@include('Admin.Common._footer')
  <!--/_footer /作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->

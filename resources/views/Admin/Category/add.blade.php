@@ -1,4 +1,4 @@
-@include('Admin.Common._meta');
+@include('Admin.Common._meta')
 
 <title>栏目设置</title>
 </head>
@@ -178,7 +178,7 @@
 </div>
 
 <!--_footer 作为公共模版分离出去-->
-@include('Admin.Common._footer');
+@include('Admin.Common._footer')
  <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
