@@ -20,6 +20,7 @@ class ArticleController extends Controller
     {
         return view('Admin/Article/show');
     }
+<<<<<<< HEAD
     /**
      * create the new article 
      *
@@ -27,6 +28,13 @@ class ArticleController extends Controller
      * @return void
      */
     public function add(Request $request)
+=======
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function add()
+>>>>>>> 392affd9aebfe0c449a7831a412805cede2976bc
     {
         $catList = (new Categories)->levelCatList(); // 获取前台所需要的层级分类列表
         if($request->isMethod('post'))

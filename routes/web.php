@@ -39,8 +39,6 @@ Route::group(['prefix' => 'category'], function () {
 	//栏目列表
     Route::get('/show','Admin\CategoryController@show');
     //添加栏目页
-    // Route::get('/add', 'Admin\CategoryController@add');
-    // Route::post('/add','Admin\CategoryController@add');
     Route::match(['get', 'post'], '/add','Admin\CategoryController@add');
 });
 //后台system
@@ -59,4 +57,14 @@ Route::group(['prefix' => 'galleries'], function(){
     // 图库添加
     Route::get('/add', 'Admin\GalleriesController@add');
     
+});
+
+// });
+
+//后台Navigate
+Route::group(['prefix' => 'navigate'],function(){
+    //导航列表
+    Route::get('/show','Admin\NavigateController@show');
+    //添加导航
+    Route::match(['get', 'post'],'/create','Admin\NavigateController@create');
 });

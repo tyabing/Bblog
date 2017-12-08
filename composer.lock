@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e5e0b0e6bf7269ad110fdf92a792e6b",
+    "content-hash": "46c8959c25d4d37aadc0ab9b170179db",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
