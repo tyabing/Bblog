@@ -48,4 +48,13 @@ Route::group(['prefix' => 'system'], function () {
     Route::get('/setting','Admin\SystemController@setting');
     //屏蔽词
     Route::get('/shielding','Admin\SystemController@shielding');
+
+});
+
+//后台Navigate
+Route::group(['prefix' => 'navigate'],function(){
+    //导航列表
+    Route::get('/show','Admin\NavigateController@show');
+    //添加导航
+    Route::match(['get', 'post'],'/create','Admin\NavigateController@create');
 });
