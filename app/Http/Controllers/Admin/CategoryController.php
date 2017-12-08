@@ -1,14 +1,31 @@
 <?php
+/*
+ * @Author: zhangtao 
+ * @Date: 2017-12-08 19:29:53 
+ * @Last Modified by: zhangtao
+ * @Last Modified time: 2017-12-08 19:44:25
+ */
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Categories;
+use Config;
+use Illuminate\Contracts\Validation\Validator;
 
 class CategoryController extends Controller
 {
-
+    /**
+     * 验证失败返回格式自定义-暂未使用
+     *
+     * @param Validator $validator
+     * @return void
+     */
+    protected function formatValidationErrors(Validator $validator)
+    {
+        return ['status'=>Config::get('constants.status_danger'),'message'=>implode("\n",$validator->errors()->all())];
+    }
 
     /**
      * Create a new controller instance.
@@ -40,11 +57,11 @@ class CategoryController extends Controller
             $res  = (new Categories)->insertAdd($post);
             if($res)
             {
-                echo 1;die;
+                return ['status'=>Config::get('constants.status_success'),'message'=>trans('common.message_success')];
             }
             else
             {
-                echo 0;die;
+                return ['status'=>Config::get('constants.status_error'),'message'=>trans('common.message_failure')];
             }
         }
         return view('Admin/Category/add')->with('catList', $catList);

@@ -18,7 +18,7 @@
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select name="cat_id" class="select">
-					<option value="0">全部栏目</option>
+					<option value="">请选择类型</option>
 					@if(!empty($catList))
 						@foreach($catList as $key => $val)
 							<option value="{{$key}}">{{$val}}</option>
@@ -34,30 +34,30 @@
 				<input type="text" class="input-text" value="0" placeholder="" id="articlesort" name="articlesort">
 			</div>
 		</div> -->
-		<div class="row cl">
+		<!-- <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">关键词：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="keywords" name="keywords">
 			</div>
-		</div>
+		</div> -->
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">文章摘要：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章摘要：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<textarea name="excerpt" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">*文章作者：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章作者：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="0" placeholder="" id="author" name="author">
+				<input type="text" class="input-text" value="" placeholder="" id="author" name="author">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">允许评论：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="check-box">
-					<input type="checkbox" id="is_allow" name="allowcomments" value="0">
+					<input type="checkbox" id="is_allow" name="is_allow" value="1">
 					<label for="checkbox-pinglun">&nbsp;</label>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 			<label class="form-label col-xs-4 col-sm-2">使用独立模版：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="check-box">
-					<input type="checkbox" name="is_page" value="0" id="checkbox-moban">
+					<input type="checkbox" name="is_page" value="1" id="checkbox-moban">
 					<label for="checkbox-moban">&nbsp;</label>
 				</div>
 				<button onClick="mobanxuanze()" class="btn btn-default radius ml-10">选择模版</button>
@@ -76,14 +76,15 @@
 			<label class="form-label col-xs-4 col-sm-2">封面图：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="uploader-thum-container">
-					<div id="fileList" class="uploader-list"></div>
-					<div id="filePicker">选择图片</div>
-					<button id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">开始上传</button>
+				<input type="file" name="image">
+					<!-- <div id="fileList" class="uploader-list"></div>
+					<div id="filePicker">选择图片</div> -->
+					<!-- <button id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">开始上传</button> -->
 				</div>
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">文章内容：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章内容：</label>
 			<div id="test-editormd">
 				<textarea name="markdown" id="article_content" style="display:none;"></textarea>
 			</div>
@@ -127,16 +128,16 @@ $(function(){
 			title:{
 				required:true,
 			},
+			cat_id:{
+				required:true,
+			},
 			articlecolumn:{
 				required:true,
 			},
-			articletype:{
+			excerpt:{
 				required:true,
 			},
 			author:{
-				required:true,
-			},
-			sources:{
 				required:true,
 			},
 			markdown:{
@@ -152,10 +153,11 @@ $(function(){
 				type: 'post',
 				url: "/article/add",
 				success: function (data) {
-					layer.msg('添加成功!', { icon: 1, time: 1000 });
+					layer.msg(data.message, {'icon':data.status});
 				},
-				error: function (XmlHttpRequest, textStatus, errorThrown) {
-					layer.msg('error!', { icon: 0, time: 1000 });
+				error: function (data) {
+					var result = JSON.parse(data.responseText);
+					layer.msg(result.message,{'icon':result.status});
 				}
 			});
 			// var index = parent.layer.getFrameIndex(window.name);

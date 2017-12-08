@@ -88,10 +88,11 @@ $(function(){
 				type: 'post',
 				url: "/category/add",
 				success: function (data) {
-					layer.msg('添加成功!', { icon: 1, time: 1000 });
+					layer.msg(data.message, {'icon':data.status});
 				},
-				error: function (XmlHttpRequest, textStatus, errorThrown) {
-					layer.msg('error!', { icon: 0, time: 1000 });
+				error: function (data) {
+					var result = JSON.parse(data.responseText);
+					layer.msg(result.message,{'icon':result.status});
 				}
 			});
 			// var index = parent.layer.getFrameIndex(window.name);
