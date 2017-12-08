@@ -46,6 +46,8 @@ Route::group(['prefix' => 'system'], function () {
     Route::get('/bar','Admin\SystemController@bar');
     //系统设置
     Route::get('/setting','Admin\SystemController@setting');
+    
+    Route::post('/setadd','Admin\SystemController@setadd');
     //屏蔽词
     Route::get('/shielding','Admin\SystemController@shielding');
 
