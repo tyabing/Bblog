@@ -28,19 +28,20 @@ class SetsModel extends Model
             foreach ($res as $k => $v) {
 
                 $return = DB::table('sets')->insert(['name' => $k,'value' => $v]);
-                if(!$return){
-                    return false;
-                }
+
             }
+            return true;
+
         }else{
+
             foreach ($res as $k => $v) {
 
-                $return = DB::table('sets')->where(['name' => $k])->update(['value' => $v]);
-                if(!$return){
-                    return false;
-                }
+                $return = DB::table('sets')->where(['name'=>$k])->update(['value' => $v]);
+
             }
+            return true;
+
         }
-            return  true;
+
     }
 }

@@ -84,7 +84,7 @@
 					<label class="form-label col-xs-4 col-sm-3">{{trans('navigate.is_new_open')}}：</label>
 					<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 						<div class="check-box">
-							<input type="checkbox" id="checkbox-pinglun" name="is_open">
+							<input type="checkbox" id="checkbox-pinglun" value="1" name="is_open">
 							<label for="checkbox-pinglun">&nbsp;</label>
 						</div>
 					</div>
