@@ -4,8 +4,8 @@
 			<dt><i class="Hui-iconfont">&#xe616;</i> 内容管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/article/show" data-title="创作列表" href="javascript:void(0)">创作列表</a></li>
-					<li><a data-href="/category/show" data-title="栏目管理" href="javascript:void(0)">分类栏目</a></li>
+					<li><a data-href="/article/show"   data-title="创作列表" href="javascript:void(0)">创作列表</a></li>
+					<li><a data-href="/category/show"  data-title="栏目管理" href="javascript:void(0)">分类栏目</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -82,7 +82,7 @@
 					<li><a data-href="/system/setting" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>
 					<!-- <li><a data-href="system-category.html" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li> -->
 					<!-- <li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li> -->
-					<li><a data-href="/system/shielding" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>
+<!--					<li><a data-href="/system/shielding" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>-->
 					<!-- <li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li> -->
 				</ul>
 			</dd>

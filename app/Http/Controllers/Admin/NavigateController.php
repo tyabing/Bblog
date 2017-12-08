@@ -56,6 +56,7 @@ class NavigateController extends Controller
                 'nav_name' => 'required|unique:navigates|max:30',
                 'jump_url' => 'required',
             ]);
+
             // 数据入库
             $result = \App\Navigate::create($request->all());
             if($result)

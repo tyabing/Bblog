@@ -84,7 +84,8 @@
 					<label class="form-label col-xs-4 col-sm-3">{{trans('navigate.is_new_open')}}：</label>
 					<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 						<div class="check-box">
-							<input type="checkbox" id="checkbox-pinglun" name="is_open">
+
+							<input type="checkbox" id="checkbox-pinglun" name="is_open" value="1">
 							<label for="checkbox-pinglun">&nbsp;</label>
 						</div>
 					</div>
@@ -141,7 +142,7 @@ $(function(){
                 'success':function(data)
                 {
                     // 200 请求，获取服务器消息与状态
-                    layer.msg(data.message,{'icon':data.status});
+                    layer.msg(data.message,{icon:data.status});
                     // 自动关闭弹窗
                     //var index = parent.layer.getFrameIndex(window.name);
 			        //parent.$('.btn-refresh').click();
@@ -151,7 +152,7 @@ $(function(){
                 {                
                     var result = JSON.parse(data.responseText);
                     // 非200请求，获取错误消息
-                    layer.msg(result.message,{'icon':result.status});
+                    layer.msg(data.message,{icon:data.status});
                 }
             });
 
