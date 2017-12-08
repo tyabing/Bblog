@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 //前台首页
 Route::get('/','Home\IndexController@index');
 //关于我们
@@ -37,8 +38,10 @@ Route::group(['prefix' => 'article'], function () {
 Route::group(['prefix' => 'category'], function () {
 	//栏目列表
     Route::get('/show','Admin\CategoryController@show');
-    //添加栏目
-    Route::get('/add','Admin\CategoryController@add');
+    //添加栏目页
+    // Route::get('/add', 'Admin\CategoryController@add');
+    // Route::post('/add','Admin\CategoryController@add');
+    Route::match(['get', 'post'], '/add','Admin\CategoryController@add');
 });
 //后台system
 Route::group(['prefix' => 'system'], function () {
@@ -48,4 +51,12 @@ Route::group(['prefix' => 'system'], function () {
     Route::get('/setting','Admin\SystemController@setting');
     //屏蔽词
     Route::get('/shielding','Admin\SystemController@shielding');
+});
+// 后台gallery
+Route::group(['prefix' => 'galleries'], function(){
+    // 图库列表
+    Route::get('/show', 'Admin\GalleriesController@show');
+    // 图库添加
+    Route::get('/add', 'Admin\GalleriesController@add');
+    
 });

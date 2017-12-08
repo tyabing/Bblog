@@ -1,5 +1,5 @@
 @include('Admin.Common._meta')
-<title>栏目管理</title>
+<title>分类栏目</title>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
@@ -17,30 +17,34 @@
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
 		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-		<a class="btn btn-primary radius" onclick="system_category_add('添加资讯','/category/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加栏目</a>
+		<a class="btn btn-primary radius" onclick="system_category_add('添加分类','/category/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加栏目</a>
 		</span>
-		<span class="r">共有数据：<strong>54</strong> 条</span>
+		<span class="r">共有顶级分类：<strong><?= count($catList)?></strong> 条</span>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="80">ID</th>
-					<th width="80">排序</th>
+					<th width="25"><input type="checkbox" disabled></th>
+					<th width="100">ID</th>
 					<th>栏目名称</th>
 					<th width="100">操作</th>
 				</tr>
 			</thead>
 			<tbody>
+			@if(!empty($catList))
+			@foreach($catList as $obj)
 				<tr class="text-c">
-					<td><input type="checkbox" name="" value=""></td>
-					<td>1</td>
-					<td>1</td>
-					<td class="text-l">一级栏目</td>
-					<td class="f-14"><a title="编辑" href="javascript:;" onclick="system_category_edit('栏目编辑','/article/category/add','1','700','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-						<a title="删除" href="javascript:;" onclick="system_category_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td><input type="checkbox" name="" objue="{{$obj->cat_id}}"></td>
+					<td>{{$obj->cat_id}}</td>
+					<td class="text-l">{{$obj->cat_name}}</td>
+					<td class="f-14">
+						<a title="编辑" href="javascript:void(0)" onclick="system_category_edit('栏目编辑','/article/category/add', '{{$obj->cat_id}}','700','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="删除" href="javascript:void(0)" onclick="system_category_del(this, '{{$obj->cat_id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					</td>
 				</tr>
+			@endforeach
+			@endif
 				
 			</tbody>
 		</table>
