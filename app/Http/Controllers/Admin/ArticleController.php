@@ -16,6 +16,10 @@ class ArticleController extends Controller
     {
         return view('Admin/Article/show');
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function add()
     {
         return view('Admin/Article/add');
