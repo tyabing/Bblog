@@ -26,9 +26,9 @@
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="80">排序</th>
+					<th width="80">导航名称</th>
 					<th width="80">新标签打开</th>
-					<th>导航名称</th>
+					<th>排序</th>
 					<th>导航链接</th>
 					<th>创建时间</th>
 					<th>更新时间</th>
@@ -36,7 +36,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			
+
 				<!-- 来源于数据库 -->
 				<tr class="text-c">
 					<td><input type="checkbox" name="" value=""></td>
@@ -64,13 +64,143 @@
 <script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 
+$.fn.dataTable.pipeline = function ( opts ) {
+    // Configuration options
+    var conf = $.extend( {
+        pages: 5,     // number of pages to cache
+        url: '',      // script url
+        data: null,   // function or object with parameters to send to the server
+                      // matching how `ajax.data` works in DataTables
+        method: 'GET' // Ajax HTTP method
+    }, opts );
+ 
+    // Private variables for storing the cache
+    var cacheLower = -1;
+    var cacheUpper = null;
+    var cacheLastRequest = null;
+    var cacheLastJson = null;
+ 
+    return function ( request, drawCallback, settings ) {
+        var ajax          = false;
+        var requestStart  = request.start;
+        var drawStart     = request.start;
+        var requestLength = request.length;
+        var requestEnd    = requestStart + requestLength;
+         
+        if ( settings.clearCache ) {
+            // API requested that the cache be cleared
+            ajax = true;
+            settings.clearCache = false;
+        }
+        else if ( cacheLower < 0 || requestStart < cacheLower || requestEnd > cacheUpper ) {
+            // outside cached data - need to make a request
+            ajax = true;
+        }
+        else if ( JSON.stringify( request.order )   !== JSON.stringify( cacheLastRequest.order ) ||
+                  JSON.stringify( request.columns ) !== JSON.stringify( cacheLastRequest.columns ) ||
+                  JSON.stringify( request.search )  !== JSON.stringify( cacheLastRequest.search )
+        ) {
+            // properties changed (ordering, columns, searching)
+            ajax = true;
+        }
+         
+        // Store the request for checking next time around
+        cacheLastRequest = $.extend( true, {}, request );
+ 
+        if ( ajax ) {
+            // Need data from the server
+            if ( requestStart < cacheLower ) {
+                requestStart = requestStart - (requestLength*(conf.pages-1));
+ 
+                if ( requestStart < 0 ) {
+                    requestStart = 0;
+                }
+            }
+             
+            cacheLower = requestStart;
+            cacheUpper = requestStart + (requestLength * conf.pages);
+ 
+            request.start = requestStart;
+            request.length = requestLength*conf.pages;
+ 
+            // Provide the same `data` options as DataTables.
+            if ( $.isFunction ( conf.data ) ) {
+                // As a function it is executed with the data object as an arg
+                // for manipulation. If an object is returned, it is used as the
+                // data object to submit
+                var d = conf.data( request );
+                if ( d ) {
+                    $.extend( request, d );
+                }
+            }
+            else if ( $.isPlainObject( conf.data ) ) {
+                // As an object, the data given extends the default
+                $.extend( request, conf.data );
+            }
+ 
+            settings.jqXHR = $.ajax( {
+                "type":     conf.method,
+                "url":      conf.url,
+                "data":     request,
+                "dataType": "json",
+                "cache":    false,
+                "success":  function ( json ) {
+                    cacheLastJson = $.extend(true, {}, json);
+ 
+                    if ( cacheLower != drawStart ) {
+                        json.data.splice( 0, drawStart-cacheLower );
+                    }
+                    if ( requestLength >= -1 ) {
+                        json.data.splice( requestLength, json.data.length );
+                    }
+                     
+                    drawCallback( json );
+                }
+            } );
+        }
+        else {
+            json = $.extend( true, {}, cacheLastJson );
+            json.draw = request.draw; // Update the echo for each response
+            json.data.splice( 0, requestStart-cacheLower );
+            json.data.splice( requestLength, json.data.length );
+ 
+            drawCallback(json);
+        }
+    }
+};
+ 
+// Register an API method that will empty the pipelined data, forcing an Ajax
+// fetch on the next draw (i.e. `table.clearPipeline().draw()`)
+$.fn.dataTable.Api.register( 'clearPipeline()', function () {
+    return this.iterator( 'table', function ( settings ) {
+        settings.clearCache = true;
+    } );
+} );
+
 $('.table-sort').dataTable({
-		   
-	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+	"processing": true,
+    "serverSide": true,
+    "ajax": $.fn.dataTable.pipeline( {
+        url: '/navigate/show',
+        pages: 1 // number of pages to cache
+	} ),
+	"columns": [
+		{ "data": "nav_id" },
+		{ "data": "nav_name" },
+		{ "data": "is_open" },
+		{ "data": "sort" },
+		{ "data": "jump_url" },
+		{ "data": "created_at" },		
+		{ "data": "updated_at" },
+		{ "data": "is_parent" }
+		
+	],
+	"pagingType":   "full_numbers",
+	"aaSorting": [[ 4, "desc" ]],//默认第几个排序
 	"bStateSave": true,//状态保存
 	"aoColumnDefs": [
 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+	  //{"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
 	]
 });
 

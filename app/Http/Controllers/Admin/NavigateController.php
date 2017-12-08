@@ -27,12 +27,16 @@ class NavigateController extends Controller
      */
     public function show(Request $request)
     {
-
-        if($request->isMethod('ajax'))
+        if($request->ajax())
         {
-            $navigates = \App\Navigate::paginate(10)->toArray();   
-            return $navigates['data'];   
-
+            // echo '<pre>';
+            $start = $request->input('start',0);
+            $length = $request->input('length',10);
+            // echo $start,'===';
+            // print_r($request->all());
+            // die;
+            return \App\Navigate::getNavigates($start,$length); 
+        
         }
         //var_dump($navigates->links());
         return view('Admin/Navigate/show');
