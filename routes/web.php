@@ -31,7 +31,7 @@ Route::group(['prefix' => 'article'], function () {
 	//文章列表
     Route::get('/show','Admin\ArticleController@show');
     //添加文章
-    Route::get('/add','Admin\ArticleController@add');
+    Route::match(['get', 'post'], '/add','Admin\ArticleController@add');
     
 });
 //后台category

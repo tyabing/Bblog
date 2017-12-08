@@ -6,13 +6,14 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" action="/article/add" method="post" id="form-article-add">
+	<form class="form form-horizontal" id="form-article-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="articletitle" name="title">
 			</div>
 		</div>
+		{{csrf_field()}}
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
@@ -84,13 +85,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">文章内容：</label>
 			<div id="test-editormd">
-				<textarea name="test-editormd" id="article_content" style="display:none;"></textarea>
+				<textarea name="markdown" id="article_content" style="display:none;"></textarea>
 			</div>
 			@include('markdown::encode',['editors'=>['test-editormd']])
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+				<input class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核
+				<!-- <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button> -->
 				<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>
 				<button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
@@ -122,7 +124,7 @@ $(function(){
 	//表单验证
 	$("#form-article-add").validate({
 		rules:{
-			articletitle:{
+			title:{
 				required:true,
 			},
 			articlecolumn:{
@@ -137,7 +139,7 @@ $(function(){
 			sources:{
 				required:true,
 			},
-			article_content:{
+			markdown:{
 				required:true,
 			}
 
@@ -146,10 +148,19 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			//$(form).ajaxSubmit();
-			var index = parent.layer.getFrameIndex(window.name);
+			$(form).ajaxSubmit({
+				type: 'post',
+				url: "/article/add",
+				success: function (data) {
+					layer.msg('添加成功!', { icon: 1, time: 1000 });
+				},
+				error: function (XmlHttpRequest, textStatus, errorThrown) {
+					layer.msg('error!', { icon: 0, time: 1000 });
+				}
+			});
+			// var index = parent.layer.getFrameIndex(window.name);
 			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
+			// parent.layer.close(index);
 		}
 	});
 	

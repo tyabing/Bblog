@@ -33,7 +33,7 @@ class CategoryController extends Controller
         {
             // 验证
             $this->validate($request, [
-                'cat_name'  => 'required|unique:cat_name|max:60',
+                'cat_name'  => 'required|unique:categories|max:60',
                 'parent_id' => 'required',
             ]);
             $post = $request->except('_token');

@@ -8,10 +8,6 @@
 		<div id="tab-category" class="HuiTab">
 			{{csrf_field()}}
 			<div class="tabCon">
-				<!-- <div class="row cl">
-					<label class="form-label col-xs-4 col-sm-3">栏目ID：</label>
-					<div class="formControls col-xs-8 col-sm-9">11230</div>
-				</div> -->
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-3">
 						<span class="c-red">*</span>
@@ -39,22 +35,6 @@
 					<div class="col-3">
 					</div>
 				</div>
-				<!-- <div class="row cl">
-					<label class="form-label col-xs-4 col-sm-3">别名：</label>
-					<div class="formControls col-xs-8 col-sm-9">
-						<input type="text" class="input-text" value="" placeholder="" id="" name="">
-					</div>
-					<div class="col-3">
-					</div>
-				</div> -->
-				<!-- <div class="row cl">
-					<label class="form-label col-xs-4 col-sm-3">目录：</label>
-					<div class="formControls col-xs-8 col-sm-9">
-						<input type="text" class="input-text" value="" placeholder="" id="" name="">
-					</div>
-					<div class="col-3">
-					</div>
-				</div> -->
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-3">描述：</label>
 					<div class="formControls col-xs-8 col-sm-9">
@@ -111,7 +91,7 @@ $(function(){
 					layer.msg('添加成功!', { icon: 1, time: 1000 });
 				},
 				error: function (XmlHttpRequest, textStatus, errorThrown) {
-					layer.msg('error!', { icon: 1, time: 1000 });
+					layer.msg('error!', { icon: 0, time: 1000 });
 				}
 			});
 			// var index = parent.layer.getFrameIndex(window.name);
