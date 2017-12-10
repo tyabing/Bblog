@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CategoriesModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Categories;
@@ -34,9 +35,11 @@ class CategoryController extends Controller
      */
     public function show()
     {
+
         $catList = (new Categories)->getList();
         
         return view('Admin/Category/show')->with('catList', $catList);
+
     }
     /**
      * 分类列表的添加
@@ -66,6 +69,7 @@ class CategoryController extends Controller
         }
         return view('Admin/Category/add')->with('catList', $catList);
     }
+
 
 
 }
