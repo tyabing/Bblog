@@ -13,6 +13,12 @@
 				<input type="text" class="input-text" value="" placeholder="" id="articletitle" name="title">
 			</div>
 		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>唯一标识：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="slug" name="slug">
+			</div>
+		</div>
 		{{csrf_field()}}
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
@@ -63,13 +69,13 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">使用独立模版：</label>
+			<label class="form-label col-xs-4 col-sm-2">使用独立页面：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="check-box">
 					<input type="checkbox" name="is_page" value="1" id="checkbox-moban">
 					<label for="checkbox-moban">&nbsp;</label>
 				</div>
-				<button onClick="mobanxuanze()" class="btn btn-default radius ml-10">选择模版</button>
+				<!-- <button onClick="mobanxuanze()" class="btn btn-default radius ml-10">选择模版</button> -->
 			</div>
 		</div>
 		<div class="row cl">
@@ -126,6 +132,9 @@ $(function(){
 	$("#form-article-add").validate({
 		rules:{
 			title:{
+				required:true,
+			},
+			slug:{
 				required:true,
 			},
 			cat_id:{

@@ -47,6 +47,7 @@ class ArticleController extends Controller
             // 验证
             $this->validate($request, [
                 'title'  => 'required|unique:posts|max:120',
+                'slug'   => 'required|unique:posts|max:20',
             ]);
             // 1.是否有文件上传
             if($request->hasFile('image'))
@@ -61,7 +62,6 @@ class ArticleController extends Controller
             }
             $post = $request->all();
             $post['image'] = $image;
-            $post['slug']  = $post['title'];
             if(Posts::create($post))
             {
                 return ['status' => Config::get('constants.status_success'), 'message' => trans('common.message_success')];
