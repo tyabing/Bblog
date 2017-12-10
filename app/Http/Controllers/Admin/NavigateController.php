@@ -10,7 +10,7 @@ use Illuminate\Contracts\Validation\Validator;
 class NavigateController extends Controller
 {
     /**
-     * 验证失败返回格式自定义-暂未使用
+     * 验证失败返回格式自定义
      *
      * @param Validator $validator
      * @return void
@@ -27,19 +27,10 @@ class NavigateController extends Controller
      */
     public function show(Request $request)
     {
-        if($request->ajax())
-        {
-            // echo '<pre>';
-            $start = $request->input('start',0);
-            $length = $request->input('length',10);
-            // echo $start,'===';
-            // print_r($request->all());
-            // die;
-            return \App\Navigate::getNavigates($start,$length); 
-        
-        }
-        //var_dump($navigates->links());
-        return view('Admin/Navigate/show');
+
+        $result = \App\Navigate::paginate(Config::get('constants.page_size'));
+
+        return view('Admin/Navigate/show',['result'=>$result]);
     }
 
     /**
