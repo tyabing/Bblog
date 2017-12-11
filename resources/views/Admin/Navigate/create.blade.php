@@ -43,35 +43,36 @@
 					<div class="col-3">
 					</div>
 				</div>
-                <!--
+            
 				<div class="row cl">
-					<label class="form-label col-xs-4 col-sm-3">别名：</label>
-					<div class="formControls col-xs-8 col-sm-9">
-						<input type="text" class="input-text" value="" placeholder="" id="" name="">
-					</div>
-					<div class="col-3">
-					</div>
-				</div>
-                -->
-				<div class="row cl">
-					<label class="form-label col-xs-4 col-sm-3">{{trans('navigate.jump_url')}}：</label>
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>
+					{{trans('navigate.jump_url')}}：</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<input type="text" class="input-text" value="" placeholder="" id="" name="jump_url">
 					</div>
 					<div class="col-3">
 					</div>
 				</div>
+
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3">{{trans('navigate.sort')}}：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="50" placeholder="" id="" name="">
+					</div>
+					<div class="col-3">
+					</div>
+				</div>				
                 <!--
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-3">导航类型：</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<span class="select-box">
 						<select name="" class="select">
-							<option value="1">文章</option>
+							<option value="1">标签</option>
 							<option value="2">图片</option>
-							<option value="3">商品</option>
+							<option value="3">栏目</option>
 							<option value="4">视频</option>
-							<option value="5">专题</option>
+							<option value="5">页面</option>
 							<option value="6">链接</option>
 						</select>
 						</span>
@@ -84,8 +85,7 @@
 					<label class="form-label col-xs-4 col-sm-3">{{trans('navigate.is_new_open')}}：</label>
 					<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 						<div class="check-box">
-
-							<input type="checkbox" id="checkbox-pinglun" name="is_open" value="1">
+							<input type="checkbox" checked id="checkbox-pinglun" name="is_open" >
 							<label for="checkbox-pinglun">&nbsp;</label>
 						</div>
 					</div>
@@ -108,7 +108,7 @@
  <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<!-- <script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> -->
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
@@ -143,10 +143,12 @@ $(function(){
                 {
                     // 200 请求，获取服务器消息与状态
                     layer.msg(data.message,{icon:data.status});
+					parent.window.location.reload();
+
                     // 自动关闭弹窗
-                    //var index = parent.layer.getFrameIndex(window.name);
-			        //parent.$('.btn-refresh').click();
-			        //parent.layer.close(index);
+                    // var index = parent.layer.getFrameIndex(window.name);
+			        // parent.$('.btn-refresh').click();
+			        // parent.layer.close(index);
                 },
                 'error':function(data)
                 {                
