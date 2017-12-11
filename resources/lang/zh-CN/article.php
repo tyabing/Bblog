@@ -28,12 +28,18 @@ return [
     'show_title'         => '资讯列表',
     'show_close_select'  => '关闭选项卡',
     'show_datetime'      => '时间范围',
+    'show_search'        => '资讯名称',
     'show_now_create'    => '立即创作',
     'show_list_title'    => '标题',
     'show_list_category' => '分类',
+    'show_list_author'   => '作者',
     'show_list_create_at'=> '更新时间',
     'show_list_read_num' => '阅读量',
     'show_list_status'   => '发布状态',
+    'show_list_draft'    => '草稿',
+    'show_list_publish'  => '已发布',
+    'show_list_edit'     => '资讯编辑',
+    'show_list_check'    => '审核',
 
 
 
