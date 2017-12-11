@@ -16,12 +16,13 @@ return [
     'home'              =>  '首页',
     'navigate_set'      =>  '导航设置',
     'system_set'        =>  '系统管理',
+    'refresh'           =>  '刷新',
 
     /** 操作提示 */
     'message_success'   =>  '操作成功',
     'message_failure'   =>  '操作失败',
     'paramer_exception' =>  '参数异常',
-    'none_record'       =>  '不存的记录',
+    'none_record'       =>  '不存在的记录',
 
     /** 动作描述 */
     'do'                =>  '操作',
