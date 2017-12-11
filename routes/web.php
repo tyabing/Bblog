@@ -80,3 +80,9 @@ Route::group(['prefix' => 'navigate'],function(){
     // 修改导航
     Route::match(['get', 'post'],'/update/{id}','Admin\NavigateController@update');
 });
+// 后台
+Route::group(['prefix' => 'Contacts'], function () {
+
+    // 留言
+    Route::get('/message ','Admin\ContactsController@show');  
+});

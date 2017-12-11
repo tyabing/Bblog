@@ -30,13 +30,11 @@
 				<tr class="text-c">
 					<th><input type="checkbox" name="" value=""></th>
 					<th>{{trans('navigate.nav_name')}}</th>
-
 					<th>{{trans('navigate.jump_url')}}</th>
 					<th>{{trans('navigate.sort')}}</th>
 					<th>{{trans('common.created_at')}}</th>
 					<th>{{trans('common.updated_at')}}</th>
 					<th>{{trans('navigate.is_new_open')}}</th>
-
 					<th>{{trans('common.do')}}</th>
 				</tr>
 			</thead>
@@ -45,7 +43,6 @@
 				<!-- 来源于数据库 -->
                 @foreach ($result as $nav)
 				<tr class="text-c">
-
 					<td><input type="checkbox" name="navid[]" value="{{$nav->nav_id}}"></td>
 					<td>{{$nav->nav_name}}</td>
 					<td>{{$nav->jump_url}}</td>
@@ -59,7 +56,6 @@
                     </td>						
 					<td class="f-14"><a title="{{trans('common.do_update')}}" href="javascript:;" onclick="system_navigate_edit('{{trans('navigate.update')}}','/navigate/update','{{$nav->nav_id}}','800','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
 						<a title="{{trans('common.do_delete')}}" href="javascript:;" onclick="system_navigate_del(this,'{{$nav->nav_id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-
 				</tr>
                 @endforeach
 											
@@ -67,9 +63,7 @@
             
 		</table>
         <div class="r">
-
             {{$result->appends(['nav_name'=>$navName])->links()}}        
-
         </div>
         
 	</div>
@@ -79,8 +73,39 @@
  <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
+<!-- <script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> -->
+<!-- <script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> -->
+<!-- <script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script> -->
 
-
+<script type="text/javascript">
+/**是否新标签打开状态切换 */
+$('.switch').on('switch-change', function (e, data) {
+	var $el = $(data.el)
+		, _this = $(this)
+		, nav_id = $el.attr('nav_id')
+	  	, value = (data.value) ? 1 : 0;
+	  
+	$.get('/navigate/switch',{'nav_id':nav_id,'value':value},function(data){
+		layer.msg(data.message,{icon:data.status});
+		//如果后台有异常仅语言提示、暂不自动切换回来
+		//$(_this).bootstrapSwitch('setState', !$el.prop('checked'));
+	})
+});  
+/*系统-导航-批量删除*/
+function batch_delete()
+{
+	layer.confirm('{{trans('common.ask_delete')}}',function(index){
+		var navids = [];
+		// 获取选中ID
+		$('input[name="navid[]"]').each(function(index,obj){
+			$(obj).prop('checked') ? navids.push($(obj).val()) : '';
+		})
+		$.post('/navigate/batch',{'navids':navids,'_token':"{{ csrf_token() }}"},function(data){
+			layer.msg(data.message,{icon:data.status});
+			window.location.reload();
+		})		
+	});
+}
 /*系统-导航-添加*/
 function system_navigate_add(title,url,w,h){
 	layer_show(title,url,w,h);
