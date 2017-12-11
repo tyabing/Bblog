@@ -122,7 +122,7 @@ class NavigateController extends Controller
                 }
                 // 验证数据
                 $this->validate($request, [
-                    'nav_name' => 'required|unique:navigates|max:30',
+                    'nav_name' => 'required|max:30',
                     'jump_url' => 'required',
                 ]);
 
@@ -143,7 +143,7 @@ class NavigateController extends Controller
         }
         catch(\Exception $e)
         {
-            abort(500,$e->getMessage());
+            return ajax_exception($e->getMessage());
         }
     }
 

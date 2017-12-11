@@ -154,7 +154,7 @@ $(function(){
                 {                
                     var result = JSON.parse(data.responseText);
                     // 非200请求，获取错误消息
-                    layer.msg(data.message,{icon:data.status});
+                    layer.msg(result.message,{icon:result.status});
                 }
             });
 
