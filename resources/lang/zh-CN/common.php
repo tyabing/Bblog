@@ -20,6 +20,18 @@ return [
     /** 操作提示 */
     'message_success'   =>  '操作成功',
     'message_failure'   =>  '操作失败',
+    'paramer_exception' =>  '参数异常',
+    'none_record'       =>  '不存的记录',
+
+    /** 动作描述 */
+    'do'                =>  '操作',
+    'do_update'         =>  '修改',
+    'do_delete'         =>  '删除',
+    'batch_delete'      =>  '批量删除',
+
+    /** 时间描述 */
+    'created_at'         =>  '创建时间',
+    'updated_at'         =>  '更新时间',
 
     /** 动作描述 */
     'do'                =>  '操作',
@@ -41,7 +53,9 @@ return [
     'form_submit'       =>  '提交',
     'form_cancel'       =>  '取消',
     'form_reset'        =>  '重置',
+
     'form_preservation'       =>  '保存',
+
 
 
     /** 分页通用 */

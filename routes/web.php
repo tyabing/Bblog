@@ -63,10 +63,18 @@ Route::group(['prefix' => 'galleries'], function(){
 
 // });
 
-//后台Navigate
+// 后台Navigate
 Route::group(['prefix' => 'navigate'],function(){
-    //导航列表
+    // 导航列表
     Route::get('/show','Admin\NavigateController@show');
-    //添加导航
+    // 导航删除
+    Route::post('/delete','Admin\NavigateController@delete');
+    // 导航批量删除
+    Route::post('/batch','Admin\NavigateController@batchDelete');
+    // 导航显示状态切换
+    Route::get('/switch','Admin\NavigateController@switchIsNewOpen');  
+    // 添加导航
     Route::match(['get', 'post'],'/create','Admin\NavigateController@create');
+    // 修改导航
+    Route::match(['get', 'post'],'/update/{id}','Admin\NavigateController@update');
 });

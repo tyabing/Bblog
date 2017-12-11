@@ -38,11 +38,12 @@ class SystemController extends Controller
     public function setting(Request $request)
     {
         $array= (new SetsModel())->setlist();
-       
+
         return view('Admin/System/setting',['array'=>$array]);
     }
 
     public function setadd(Request $request){
+
 
         if($request->isMethod('POST')) {
             $res = $request->all();
@@ -57,6 +58,7 @@ class SystemController extends Controller
                 return ['status'=>Config::get('constants.status_error'),'message'=>trans('common.message_failure')];
             }
         }
+
 
     }
 

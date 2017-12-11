@@ -16,12 +16,14 @@
 
 		<div id="tab-system" class="HuiTab">
 			<div class="tabBar cl">
+
 				<span>{{trans('sets.set_basic')}}</span>
 				<span>{{trans('sets.set_security')}}</span>
 				<span>{{trans('sets.set_email')}}</span>
 				<span>{{trans('sets.set_message')}}</span>
 				<span>{{trans('sets.set_shield')}}</span>
 				<span>{{trans('sets.set_other')}}</span>
+
 			</div>
 
 			<div class="tabCon">
@@ -55,6 +57,7 @@
 						{{trans('sets.set_path')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<input type="text" id="website-static" placeholder="默认为空，为相对路径" value="<?= isset($array['Path'])?$array['Path']:'';?>" class="input-text" name="Path">
+
 					</div>
 				</div>
 				{{--<div class="row cl">--}}
@@ -71,8 +74,17 @@
 						{{trans('sets.set_footnews')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<input type="text" id="website-copyright" placeholder="&copy; 2016 H-ui.net" value="<?= isset($array['FootNews'])?$array['FootNews']:'';?>" class="input-text" name="FootNews">
+
 					</div>
 				</div>
+				{{--<div class="row cl">--}}
+					{{--<label class="form-label col-xs-4 col-sm-2">--}}
+						{{--<span class="c-red">*</span>--}}
+						{{--上传目录配置：</label>--}}
+					{{--<div class="formControls col-xs-8 col-sm-9">--}}
+						{{--<input type="text" id="website-uploadfile" placeholder="默认为uploadfile" value="" class="input-text">--}}
+					{{--</div>--}}
+				{{--</div>--}}
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_recordnum')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
@@ -82,7 +94,9 @@
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_group')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<textarea class="textarea" name="Group"><?= isset($array['Group'])?$array['Group']:'';?></textarea>
+
 					</div>
 				</div>
 			</div>
@@ -90,13 +104,17 @@
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_allow_ip')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<textarea class="textarea" name="AllowIp"  placeholder="请以（|）为分割符" id=""><?= isset($array['AllowIp'])?$array['AllowIp']:'';?></textarea>
+
 					</div>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_failnum')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<input type="text" class="input-text" value="<?= isset($array['FailNum'])?$array['FailNum']:'';?>" id="" name="FailNum" >
+
 					</div>
 				</div>
 			</div>
@@ -104,37 +122,49 @@
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_pattern')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<input type="text"  class="input-text" value="<?= isset($array['Pattern'])?$array['Pattern']:'';?>" id="" name="Pattern">
+
 					</div>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_server')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<input type="text" id="" value="<?= isset($array['Server'])?$array['Server']:'';?>" class="input-text" name="Server">
+
 					</div>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_port')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<input type="text" class="input-text" value="<?= isset($array['Port'])?$array['Port']:'';?>" id="" name="Port" >
+
 					</div>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_email_user')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<input type="text" class="input-text" value="<?= isset($array['EmailUser'])?$array['EmailUser']:'';?>" id="emailName" name="EmailUser" >
+
 					</div>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_email_pwd')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<input type="password" id="email-password" value="<?= isset($array['EmailPwd'])?$array['EmailPwd']:'';?>" class="input-text" name="EmailPwd">
+
 					</div>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_email_accept')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<input type="text" id="email-address" value="<?= isset($array['EmailAccept'])?$array['EmailAccept']:'';?>" name="EmailAccept" class="input-text">
+
 					</div>
 				</div>
 			</div>
@@ -142,17 +172,48 @@
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_appkey')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<input type="text"  class="input-text" value="<?= isset($array['Appkey'])?$array['Appkey']:'';?>" id="" name="Appkey">
+
 					</div>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_secrekey')}}</label>
 					<div class="formControls col-xs-8 col-sm-9">
+
 						<input type="text" id="" value="<?= isset($array['Secrekey'])?$array['Secrekey']:'';?>" class="input-text" name="Secrekey">
 					</div>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{{trans('sets.set_after_time')}}</label>
+					<div class="formControls col-xs-8 col-sm-3">
+						<input type="text" id="" value="<?= isset($array['AfterTime'])?$array['AfterTime']:'';?>" class="input-text" name="AfterTime">
+
+
+					</div>
+				</div>
+			</div>
+
+			<div class="tabCon">
+				<div>
+					<textarea class="textarea" style="width:98%; height:300px; resize:none" name="Shielding"><?= isset($array['Shielding'])?$array['Shielding']:'';?></textarea>
+				</div>
+			</div>
+			<div class="tabCon">
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2">阿里大鱼（appkey）：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text"  class="input-text" value="<?= isset($array['Appkey'])?$array['Appkey']:'';?>" id="" name="Appkey">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2">阿里大鱼（secrekey）：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" id="" value="<?= isset($array['Secrekey'])?$array['Secrekey']:'';?>" class="input-text" name="Secrekey">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2">短信过期时间：</label>
 					<div class="formControls col-xs-8 col-sm-3">
 						<input type="text" id="" value="<?= isset($array['AfterTime'])?$array['AfterTime']:'';?>" class="input-text" name="AfterTime">
 
@@ -170,8 +231,10 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+
 				<button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> {{trans('common.form_preservation')}}</button>
 				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;{{trans('common.form_cancel')}}&nbsp;&nbsp;</button>
+
 			</div>
 		</div>
 
