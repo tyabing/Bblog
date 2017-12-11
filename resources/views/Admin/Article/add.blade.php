@@ -1,6 +1,6 @@
 @include('Admin.Common._meta')
 
-<title>新增文章 - 资讯管理 - H-ui.admin v3.1</title>
+<title>{{trans('article.add_article_title')}} - H-ui.admin v3.1</title>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
@@ -8,17 +8,23 @@
 <article class="page-container">
 	<form class="form form-horizontal" id="form-article-add">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章标题：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_title')}}：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="articletitle" name="title">
 			</div>
 		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_slug')}}：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="slug" name="slug">
+			</div>
+		</div>
 		{{csrf_field()}}
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_cat_id')}}：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select name="cat_id" class="select">
-					<option value="">请选择类型</option>
+					<option value="">{{trans('article.add_cat_value')}}</option>
 					@if(!empty($catList))
 						@foreach($catList as $key => $val)
 							<option value="{{$key}}">{{$val}}</option>
@@ -41,20 +47,20 @@
 			</div>
 		</div> -->
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章摘要：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_excerpt')}}：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<textarea name="excerpt" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章作者：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_author')}}：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="author" name="author">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">允许评论：</label>
+			<label class="form-label col-xs-4 col-sm-2">{{trans('article.add_is_allow')}}：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="check-box">
 					<input type="checkbox" id="is_allow" name="is_allow" value="1">
@@ -63,17 +69,17 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">使用独立模版：</label>
+			<label class="form-label col-xs-4 col-sm-2">{{trans('article.add_is_page')}}：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="check-box">
 					<input type="checkbox" name="is_page" value="1" id="checkbox-moban">
 					<label for="checkbox-moban">&nbsp;</label>
 				</div>
-				<button onClick="mobanxuanze()" class="btn btn-default radius ml-10">选择模版</button>
+				<!-- <button onClick="mobanxuanze()" class="btn btn-default radius ml-10">选择模版</button> -->
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">封面图：</label>
+			<label class="form-label col-xs-4 col-sm-2">{{trans('article.add_image')}}：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="uploader-thum-container">
 				<input type="file" name="image">
@@ -84,7 +90,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章内容：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_markdown')}}：</label>
 			<div id="test-editormd">
 				<textarea name="markdown" id="article_content" style="display:none;"></textarea>
 			</div>
@@ -126,6 +132,9 @@ $(function(){
 	$("#form-article-add").validate({
 		rules:{
 			title:{
+				required:true,
+			},
+			slug:{
 				required:true,
 			},
 			cat_id:{
