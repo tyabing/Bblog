@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     protected function formatValidationErrors(Validator $validator)
     {
-        return ['status'=>Config::get('constants.status_danger'),'message'=>implode("\n",$validator->errors()->all())];
+        return \App\Tools\ajax_exception(implode("\n",$validator->errors()->all()));
     }
 
     /**
@@ -60,11 +60,11 @@ class CategoryController extends Controller
             $res  = (new Categories)->insertAdd($post);
             if($res)
             {
-                return ['status'=>Config::get('constants.status_success'),'message'=>trans('common.message_success')];
+                return \App\Tools\ajax_success();
             }
             else
             {
-                return ['status'=>Config::get('constants.status_error'),'message'=>trans('common.message_failure')];
+                return \App\Tools\ajax_error();
             }
         }
         return view('Admin/Category/add')->with('catList', $catList);

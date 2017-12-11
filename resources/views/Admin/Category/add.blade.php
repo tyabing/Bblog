@@ -89,6 +89,7 @@ $(function(){
 				url: "/category/add",
 				success: function (data) {
 					layer.msg(data.message, {'icon':data.status});
+					parent.window.location.reload();
 				},
 				error: function (data) {
 					var result = JSON.parse(data.responseText);

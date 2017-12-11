@@ -10,16 +10,16 @@
 	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
 </nav>
 <div class="page-container">
-	<div class="text-c">
+	<!-- <div class="text-c">
 		<input type="text" name="" id="" placeholder="栏目名称、id" style="width:250px" class="input-text">
 		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
-	</div>
+	</div> -->
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
 		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
 		<a class="btn btn-primary radius" onclick="system_category_add('添加分类','/category/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加栏目</a>
 		</span>
-		<span class="r">共有顶级分类：<strong><?= count($catList)?></strong> 条</span>
+		<span class="r">{{trans('common.total_count')}}：<strong><?= count($catList)?></strong> {{trans('common.item')}}</span>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">

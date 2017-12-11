@@ -14,6 +14,7 @@ use App\Categories;
 use zgldh\QiniuStorage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use \Symfony\Component\Console\Input\Input;
 use Illuminate\Contracts\Validation\Validator;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -28,7 +29,7 @@ class ArticleController extends Controller
      */
     protected function formatValidationErrors(Validator $validator)
     {
-        return ajax_exception(implode("\n",$validator->errors()->all()));
+        return \App\Tools\ajax_exception(implode("\n",$validator->errors()->all()));
     }
 
     /**
@@ -57,6 +58,8 @@ class ArticleController extends Controller
                 'title'  => 'required|unique:posts|max:120',
                 'slug'   => 'required|unique:posts|max:20',
             ]);
+            $post = $request->all();
+            empty($post['image']) ? $post['image'] = '' : $post['image'];
             // 1.是否有文件上传
             if($request->hasFile('image'))
             {
@@ -65,12 +68,11 @@ class ArticleController extends Controller
                 // storage确认存储位置，file获取全部文件内容
                 if(\Storage::disk('qiniu')->put($newFileName, \File::get($request->file('image')->path())))
                 {
-                    $image = (\Storage::disk('qiniu')->getDriver()->downloadUrl($newFileName))->getUrl();
+                    $post['image'] = (\Storage::disk('qiniu')->getDriver()->downloadUrl($newFileName))->getUrl();
                 }
             }
-            $post = $request->all();
-            $post['image']    = $image;
-            $post['html']     = json_encode($post['markdown']);
+            
+            $post['html'] = $post['markdown'];
             if(Posts::create($post))
             {
                 return ajax_success();
@@ -103,17 +105,17 @@ class ArticleController extends Controller
                 }
                 if($res = $article->delete())
                 {
-                    return ajax_success();
+                    return \App\Tools\ajax_success();
                 }
                 else
                 {
-                    return ajax_error();
+                    return \App\Tools\ajax_error();
                 }
             }
         }
         catch(\Exception $e)
         {
-            return ajax_exception($e->getMessage());
+            return \App\Tools\ajax_exception($e->getMessage());
         }
     }
 

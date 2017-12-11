@@ -20,7 +20,7 @@
 		<input type="text" name="" id="" placeholder=" {{trans('article.show_search')}}" style="width:250px" class="input-text">
 		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> {{trans('common.form_search')}}</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a> <a class="btn btn-primary radius" data-title="{{trans('article.add_header')}}" data-href="/article/add" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> {{trans('article.show_now_create')}}</a></span> <span class="r">{{trans('common.total_count')}}：<strong>54</strong> {{trans('common.item')}}</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a> <a class="btn btn-primary radius" data-title="{{trans('article.add_header')}}" data-href="/article/add" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> {{trans('article.show_now_create')}}</a></span> <span class="r">{{trans('common.total_count')}}：<strong>{{$artList->count()}}</strong> {{trans('common.item')}}</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
@@ -85,19 +85,11 @@
  <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<!-- <script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
-<script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script> -->
 <script type="text/javascript">
-// $('.table-sort').dataTable({
-// 	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-// 	"bStateSave": true,//状态保存
-// 	"pading":false,
-// 	"aoColumnDefs": [
-// 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-// 	  {"orderable":false,"aTargets":[0,8]}// 不参与排序的列
-// 	]
-// });
+
 
 /*资讯-添加*/
 function article_add(title,url,w,h){
@@ -129,7 +121,6 @@ function article_del(obj,id){
 				$(obj).parents("tr").remove();
 				layer.msg(data.message,{icon:data.status});
 				window.location.reload();
-				larer.close(index);
 			},
 			error:function(data) {
 				var result = JSON.parse(data.responseText);
