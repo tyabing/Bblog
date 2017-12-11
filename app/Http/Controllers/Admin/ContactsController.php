@@ -9,11 +9,8 @@
 namespace App\Http\Controllers\Admin;
 use DB;
 use Config;
-use App\Posts;
-
-use App\Categories;
+use \App\Posts;
 use Illuminate\View\View;
-use zgldh\QiniuStorage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Validation\Validator;
@@ -21,8 +18,11 @@ use \Symfony\Component\HttpKernel\Exception\HttpException;
 class ContactsController extends Controller
 {
     public function show(){
-        $num=DB::table('contacts')->where(['status'=>0])->count();
-        View::share('num',$num);
+        //$num=DB::table('contacts')->where(['status'=>0])->count();
+        
+        $contactsList=DB::table('contacts')->where(['status'=>0])->select()->get();
+        
+        return view('Admin/Contacts/show', ['contactsList' => $contactsList]);
     }
 }
 ?>
