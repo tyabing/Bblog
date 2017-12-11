@@ -1,11 +1,15 @@
 <?php
+namespace App\Tools;
 
-
-/**
+/*
  * 应用公共函数库
  * 
- */ 
-use Config;
+ * @Author: DingBing 
+ * @Date: 2017-12-11 15:43:03 
+ * @Last Modified by: DingBing
+ * @Last Modified time: 2017-12-11 15:52:46
+ */
+
 
 
 /** 开发调试函数 */
@@ -26,19 +30,19 @@ function p($data,$isBreak=true)
 /** Ajax 操作成功响应消息 */
 function ajax_success()
 {
-    return ['status'=>Config::get('constants.status_success'),'message'=>trans('common.message_success')];                    
+    return ['status'=>\Config::get('constants.status_success'),'message'=>trans('common.message_success')];                    
 }
 
 /** Ajax 操作失败响应消息 */
 function ajax_error()
 {
-    return ['status'=>Config::get('constants.status_error'),'message'=>trans('common.message_failure')];
+    return ['status'=>\Config::get('constants.status_error'),'message'=>trans('common.message_failure')];
 }
 
 /** Ajax 操作异常响应消息 */
 function ajax_exception($message="")
 {
-    return ['status'=>Config::get('constants.status_danger'),'message'=>$message];
+    return ['status'=>\Config::get('constants.status_danger'),'message'=>$message];
 }
 
 
