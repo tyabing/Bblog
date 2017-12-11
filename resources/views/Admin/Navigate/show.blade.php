@@ -1,4 +1,5 @@
 @include('Admin.Common._meta')
+
 <title>{{trans('navigate.nav_set')}}</title>
 </head>
 <body>
@@ -19,39 +20,46 @@
 		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a>
 		<a class="btn btn-primary radius" onclick="system_navigate_add('{{trans('navigate.nav_create')}}','/navigate/create')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加导航</a>
 		</span>
-		<span class="r">{{trans('common.total_count')}}：<strong>54</strong> {{trans('common.item')}}</span>
+		<span class="r">{{trans('common.total_count')}}：<strong>{{$result->total()}}</strong> {{trans('common.item')}}</span>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="80">排序</th>
-					<th width="80">新标签打开</th>
-					<th>导航名称</th>
-					<th>导航链接</th>
-					<th>创建时间</th>
-					<th>更新时间</th>
-					<th width="100">操作</th>
+					<th><input type="checkbox" name="" value=""></th>
+					<th>{{trans('navigate.nav_name')}}</th>
+					<th>{{trans('navigate.is_new_open')}}</th>
+					<th>{{trans('navigate.sort')}}</th>
+					<th>{{trans('navigate.jump_url')}}</th>
+					<th>{{trans('common.created_at')}}</th>
+					<th>{{trans('common.updated_at')}}</th>
+					<th>{{trans('common.do')}}</th>
 				</tr>
 			</thead>
 			<tbody>
-			
+
 				<!-- 来源于数据库 -->
+                @foreach ($result as $nav)
 				<tr class="text-c">
 					<td><input type="checkbox" name="" value=""></td>
-					<td>1</td>
-					<td>是</td>
-					<td>是</td>
-					<td>是</td>
-					<td>是</td>
-					<td class="text-l">一级栏目</td>
-					<td class="f-14"><a title="编辑" href="javascript:;" onclick="system_navigate_edit('栏目编辑','/article/category/add','1','700','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-						<a title="删除" href="javascript:;" onclick="system_navigate_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td>{{$nav->nav_name}}</td>
+					<td>{{$nav->is_open}}</td>
+					<td>{{$nav->sort}}</td>
+					<td>{{$nav->jump_url}}</td>
+					<td>{{$nav->created_at}}</td>
+					<td>{{$nav->updated_at}}</td>
+					<td class="f-14"><a title="{{trans('common.do_update')}}" href="javascript:;" onclick="system_navigate_edit('{{trans('navigate.update')}}','/article/category/add','1','700','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="{{trans('common.do_delete')}}" href="javascript:;" onclick="system_navigate_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
+                @endforeach
 											
 			</tbody>
+            
 		</table>
+        <div class="r">
+            {{$result->links()}}        
+        </div>
+        
 	</div>
 </div>
 <!--_footer 作为公共模版分离出去-->
@@ -60,20 +68,9 @@
 
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script>
+<!-- <script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> -->
+<!-- <script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script> -->
 <script type="text/javascript">
-
-$('.table-sort').dataTable({
-		   
-	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-	"bStateSave": true,//状态保存
-	"aoColumnDefs": [
-	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
-	]
-});
-
 
 
 /*系统-导航-添加*/

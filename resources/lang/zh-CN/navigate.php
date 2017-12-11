@@ -10,12 +10,15 @@ return [
     |
     */
 
+    'update'    =>  '导航编辑',
+
     'nav_name'      =>  '导航名称',
     'jump_url'      =>  '跳转链接',
     'is_new_open'   =>  '是否新标签打开',
     'parent_nav'    =>  '上级导航',
     'top_nav'       =>  '顶级导航',
-    'nav_create'    =>  '添加导航'
+    'nav_create'    =>  '添加导航',
+    'sort'          =>  '排序'
     
 
 ];

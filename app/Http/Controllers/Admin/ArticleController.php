@@ -21,6 +21,7 @@ class ArticleController extends Controller
      */
     protected function formatValidationErrors(Validator $validator)
     {
+        
         return ['status'=>Config::get('constants.status_danger'),'message'=>implode("\n",$validator->errors()->all())];
     }
 
@@ -56,7 +57,8 @@ class ArticleController extends Controller
                 // storage确认存储位置，file获取全部文件内容
                 if(\Storage::disk('qiniu')->put($newFileName, \File::get($request->file('image')->path())))
                 {
-                    $image = (\Storage::disk('qiniu')->getDriver()->downloadUrl($newFileName))->getUrl();
+                   $image = \Storage::disk('qiniu')->getDriver()->downloadUrl($newFileName);
+                   $image=$image->getUrl();
                 }
             }
             $post = $request->all();
@@ -75,6 +77,6 @@ class ArticleController extends Controller
         return view('Admin/Article/add')->with('catList', $catList);
     }
 
-
+    
 
 }

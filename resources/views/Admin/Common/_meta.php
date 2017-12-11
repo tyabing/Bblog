@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/css/common.css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
