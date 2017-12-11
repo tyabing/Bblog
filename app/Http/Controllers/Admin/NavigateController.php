@@ -5,16 +5,13 @@
  * @Last Modified by: DingBing
  * @Last Modified time: 2017-12-11 15:53:22
  */
-
 namespace App\Http\Controllers\Admin;
-
 use Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Validation\Validator;
 use \Symfony\Component\Console\Input\Input;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
-
 class NavigateController extends Controller
 {
     /**
@@ -27,7 +24,6 @@ class NavigateController extends Controller
     {
         return \App\Tools\ajax_exception(implode("\n",$validator->errors()->all()));
     }
-
     /**
      * 导航列表展示
      *
@@ -39,8 +35,6 @@ class NavigateController extends Controller
         $result = \App\Navigate::where('nav_name','like',"%$navName%")->orderBy('nav_id','desc')->paginate(Config::get('constants.page_size'));
         return view('Admin/Navigate/show',['result'=>$result,'navName'=>$navName]);
     }
-
-
     /**
      * 切换导航前台展示状态
      *
@@ -75,9 +69,7 @@ class NavigateController extends Controller
         {
             return \App\Tools\ajax_exception($e->getMessage());
         }
-
     }
-
     /**
      * 导航创建
      *
@@ -92,7 +84,8 @@ class NavigateController extends Controller
                 'nav_name' => 'required|unique:navigates|max:30',
                 'jump_url' => 'required',
             ]);
-
+            $all = $request->all();
+            $all['is_open'] = $request->has('is_open') ? 1 : 0;
             // 数据入库
             $result = \App\Navigate::create($all);
             if($result)
@@ -131,7 +124,6 @@ class NavigateController extends Controller
                     'nav_name' => 'required|max:30',
                     'jump_url' => 'required',
                 ]);
-
                 $all = $request->except('_token');
                 $all['is_open'] = $request->has('is_open') ? 1 : 0;
                 // 数据入库
@@ -152,7 +144,6 @@ class NavigateController extends Controller
             return \App\Tools\ajax_exception($e->getMessage());
         }
     }
-
     /**
      * 导航删除
      *
@@ -169,7 +160,6 @@ class NavigateController extends Controller
                 {
                     throw new HttpException(trans('common.none_record'));
                 }
-
                 if($res = $navigate->delete())
                 {
                     return \App\Tools\ajax_success();
@@ -178,7 +168,6 @@ class NavigateController extends Controller
                 {
                     return \App\Tools\ajax_error();
                 }
-
             }
         }
         catch(\Exception $e)
@@ -186,7 +175,6 @@ class NavigateController extends Controller
             return \App\Tools\ajax_exception($e->getMessage());
         }
     }
-
     /**
      * 导航批量删除
      */
@@ -205,7 +193,6 @@ class NavigateController extends Controller
                 {
                     return \App\Tools\ajax_error();
                 }
-
             }
         }
         catch(\Exception $e)
