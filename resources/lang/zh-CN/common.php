@@ -20,6 +20,8 @@ return [
     /** 操作提示 */
     'message_success'   =>  '操作成功',
     'message_failure'   =>  '操作失败',
+    'paramer_exception' =>  '参数异常',
+    'none_record'       =>  '不存的记录',
 
     /** 动作描述 */
     'do'                =>  '操作',
