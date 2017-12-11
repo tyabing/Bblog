@@ -1,6 +1,6 @@
 <?php
 
-
+namespace App\Tools;
 /**
  * 应用公共函数库
  * 

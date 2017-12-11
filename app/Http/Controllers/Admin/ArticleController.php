@@ -1,14 +1,21 @@
 <?php
+/*
+ * @Author: zhangtao 
+ * @Date: 2017-12-11 16:29:53 
+ * @Last Modified by: zhangtao
+ * @Last Modified time: 2017-12-11 17:12:36
+ */
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Categories;
-use Illuminate\Http\Request;
 use Config;
-use zgldh\QiniuStorage;
-use Illuminate\Contracts\Validation\Validator;
 use App\Posts;
+use App\Categories;
+use zgldh\QiniuStorage;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Validation\Validator;
+use \Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ArticleController extends Controller
 {
@@ -21,7 +28,7 @@ class ArticleController extends Controller
      */
     protected function formatValidationErrors(Validator $validator)
     {
-        return ['status'=>Config::get('constants.status_danger'),'message'=>implode("\n",$validator->errors()->all())];
+        return ajax_exception(implode("\n",$validator->errors()->all()));
     }
 
     /**
@@ -31,7 +38,8 @@ class ArticleController extends Controller
      */
     public function show()
     {
-        return view('Admin/Article/show');
+        $artList = Posts::getList();
+        return view('Admin/Article/show', ['artList' => $artList]);
     }
     /**
      * create the new article 
@@ -64,15 +72,48 @@ class ArticleController extends Controller
             $post['image'] = $image;
             if(Posts::create($post))
             {
-                return ['status' => Config::get('constants.status_success'), 'message' => trans('common.message_success')];
+                return ajax_success();
             }
             else
             {
-                return ['status' => Config::get('constants.status_error'), 'message' => trans('common.message_failure')];
+                return ajax_error();
             }  
 
         }
         return view('Admin/Article/add')->with('catList', $catList);
+    }
+
+    /**
+     * article the delete
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function delete(Request $request)
+    {
+        try
+        {
+            if($request->method('post') && $request->ajax())
+            {
+                $pid = intval($request->input('post_id'));
+                if(!$article = Posts::find($pid))
+                {
+                    throw new HttpException(trans('common.none_record'));
+                }
+                if($res = $article->delete())
+                {
+                    return ajax_success();
+                }
+                else
+                {
+                    return ajax_error();
+                }
+            }
+        }
+        catch(\Exception $e)
+        {
+            return ajax_exception($e->getMessage());
+        }
     }
 
 
