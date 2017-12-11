@@ -69,7 +69,8 @@ class ArticleController extends Controller
                 }
             }
             $post = $request->all();
-            $post['image'] = $image;
+            $post['image']    = $image;
+            $post['html']     = json_encode($post['markdown']);
             if(Posts::create($post))
             {
                 return ajax_success();

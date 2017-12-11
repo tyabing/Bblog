@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class Posts extends Model
 {
     protected $primaryKey = 'post_id';
-    protected $fillable = ['title','cat_id','excerpt','author','is_allow','is_page','markdown','image','slug'];
+    protected $fillable = ['title','cat_id','excerpt','author','is_allow','is_page','markdown','html','image','slug'];
     /**
      * get article list info
      *

@@ -162,11 +162,11 @@ $(function(){
 				type: 'post',
 				url: "/article/add",
 				success: function (data) {
-					layer.msg(data.message, {'icon':data.status});
+					layer.msg(data.message, {icon:data.status});
 				},
 				error: function (data) {
 					var result = JSON.parse(data.responseText);
-					layer.msg(result.message,{'icon':result.status});
+					layer.msg(result.message,{icon:result.status});
 				}
 			});
 			// var index = parent.layer.getFrameIndex(window.name);
