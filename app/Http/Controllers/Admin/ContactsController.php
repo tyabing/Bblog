@@ -17,12 +17,15 @@ use Illuminate\Contracts\Validation\Validator;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
 class ContactsController extends Controller
 {
-    public function show(){
+    public function show(Request $request){
         //$num=DB::table('contacts')->where(['status'=>0])->count();
         
-        $contactsList=DB::table('contacts')->where(['status'=>0])->select()->get();
-        
-        return view('Admin/Contacts/show', ['contactsList' => $contactsList]);
+        // $contactsList=DB::table('contacts')->where(['status'=>0])->select()->get();
+        $navName = $request->input('name',null);
+        $contactsList = DB::table('contacts')->where('name','like',"%$navName%")->orderBy('id','desc')->paginate(Config::get('constants.page_size'));
+     
+        return view('Admin/Contacts/show', ['contactsList' => $contactsList,'navName'=>$navName]);
+        // 
     }
 }
 ?>
