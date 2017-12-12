@@ -16,8 +16,10 @@ return [
     'home'              =>  '首页',
     'navigate_set'      =>  '导航设置',
     'system_set'        =>  '系统管理',
+    'message_list'      =>  '留言列表',
+    'comment_list'      =>  '评论列表',
     'refresh'           =>  '刷新',
-
+    'com_of_mes'        =>  '评论留言',
     /** 操作提示 */
     'message_success'   =>  '操作成功',
     'message_failure'   =>  '操作失败',
@@ -54,8 +56,7 @@ return [
     'form_submit'       =>  '提交',
     'form_cancel'       =>  '取消',
     'form_reset'        =>  '重置',
-
-    'form_preservation'       =>  '保存',
+    'form_preservation' =>  '保存',
 
 
 

@@ -84,7 +84,11 @@ Route::group(['prefix' => 'navigate'],function(){
 Route::group(['prefix' => 'Contacts'], function () {
 
     // 留言
-    Route::get('/message ','Admin\ContactsController@show'); 
+    Route::get('/message ','Admin\ContactsController@show');
     //查看留言详情
-    Route::get('/lookrow ','Admin\ContactsController@show');   
+    Route::post('/delete ','Admin\ContactsController@delete');
+    //查看留言详情
+    Route::match(['get', 'post'],'/update/{id}','Admin\ContactsController@update');
+    // 状态显示状态切换
+    Route::get('/switch','Admin\ContactsController@switchIsNewOpen');
 });
