@@ -8,11 +8,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\CategoriesModel;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Categories;
 use Config;
+use App\Categories;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Validation\Validator;
 
 class CategoryController extends Controller
@@ -36,8 +35,7 @@ class CategoryController extends Controller
     public function show()
     {
 
-        $catList = (new Categories)->getList();
-        
+        $catList = (new Categories)->levelCatList();
         return view('Admin/Category/show')->with('catList', $catList);
 
     }
