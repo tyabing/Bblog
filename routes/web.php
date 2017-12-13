@@ -97,3 +97,9 @@ Route::group(['prefix' => 'Contacts'], function () {
     // 状态显示状态切换
     Route::get('/switch','Admin\ContactsController@switchIsNewOpen');
 });
+// 后台admin（个人中心）
+Route::group(['prefix' => 'admin'],function(){
+    // 个人中心
+    Route::any('/information','Admin\AdminController@user_information');
+
+});
