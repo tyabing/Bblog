@@ -23,6 +23,7 @@ return [
     'message_success'   => 'Operation is successful.',
     'message_failure'   => 'Operation failure.',
     'paramer_exception' =>  'Parameters of the abnormal',
+    'server_exception'  =>  'Server Exception',
     'none_record'       =>  'There is no record',
 
     /** Action description */

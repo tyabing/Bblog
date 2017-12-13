@@ -22,7 +22,8 @@ return [
     'show_break'        => 'Column management',
     'show_add_category' => 'Add columns',
     'show_list_catname' => 'Column name',
-    
 
-
+    // category delete
+    'delete_message'    => 'Under this category have subcategories, unable to delete directly',
+    'del_art_message'   => 'Under the category of the article, not directly deleted',
 ];

@@ -47,6 +47,10 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('/show','Admin\CategoryController@show');
     // 添加栏目页
     Route::match(['get', 'post'], '/add','Admin\CategoryController@add');
+    // 删除分类
+    Route::post('/delete', 'Admin\CategoryController@delete');
+    // 修改分类
+    Route::match(['get', 'post'], '/update/{id}', 'Admin\CategoryController@update');
 });
 // 后台system
 Route::group(['prefix' => 'system'], function () {
