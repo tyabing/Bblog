@@ -19,7 +19,7 @@
 
     'set_footnews'         =>'At the bottom of the copyright information:',
 
-    'set_recordnum'        =>'底部的版权信息:',
+    'set_recordnum'        =>'For the record,:',
 
     'set_group'            =>'Statistical code:',
 
