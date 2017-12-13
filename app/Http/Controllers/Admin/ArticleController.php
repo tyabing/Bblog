@@ -170,7 +170,7 @@ class ArticleController extends Controller
                 'slug'   => 'required|unique:posts|max:20',
             ]);
             $post = $request->all();
-            empty($post['image']) ? $post['image'] = '' : $post['image'] = $this->uploadFile();
+            empty($post['image']) ? $post['image'] = '' : $post['image'] = $this->uploadFile($request);
         }
         else
         {
@@ -180,7 +180,7 @@ class ArticleController extends Controller
                 'slug'   => 'required|max:20',
             ]);
             $post = $request->except('_token');
-            empty($post['image']) ? $post['image'] = $artFind['image'] : $post['image'] = $this->uploadFile();
+            empty($post['image']) ? $post['image'] = $artFind['image'] : $post['image'] = $this->uploadFile($request);
         }
         $post['html'] = $post['markdown'];
         return $post;
@@ -191,7 +191,7 @@ class ArticleController extends Controller
      *
      * @return void
      */
-    protected function uploadFile()
+    protected function uploadFile($request)
     {
         // 1.是否有文件上传
             if($request->hasFile('image'))
