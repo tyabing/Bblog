@@ -8,7 +8,7 @@
     |
     */
     return[
-        'con_name'    =>'留言者姓名',
+        'con_name'    =>'留言者',
 
         'con_subject' =>'标题',
 
@@ -16,6 +16,14 @@
 
         'con_message' =>'留言者信息',
 
-        'con_status'  =>'状态'
+        'con_status'  =>'状态',
+
+        'con_details' =>'留言详情',
+
+        'con_close'   =>'关闭',
+
+        'con_read'    =>'已阅读',
+
+        'con_no_read' =>'未阅读'
         ]
  ?>

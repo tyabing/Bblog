@@ -35,7 +35,7 @@
 					<td>{{$key}}</td>
 					<td class="text-l">{{$val}}</td>
 					<td class="f-14">
-						<a title="{{trans('common.do_update')}}" href="javascript:void(0)" onclick="system_category_edit('{{trans('common.do_update')}}','/article/category/add', '{{$key}}','700','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="{{trans('common.do_update')}}" href="javascript:void(0)" onclick="system_category_edit('{{trans('common.do_update')}}','/category/update', '{{$key}}','700','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
 						<a title="{{trans('common.do_delete')}}" href="javascript:void(0)" onclick="system_category_del(this, '{{$key}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 					</td>
 				</tr>
@@ -62,21 +62,26 @@ function system_category_add(title,url,w,h){
 }
 /*系统-栏目-编辑*/
 function system_category_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
+	layer_show(title,url+"/"+id,w,h);
 }
 /*系统-栏目-删除*/
 function system_category_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
+	layer.confirm('{{trans('common.ask_delete')}}',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
+			url: '/category/delete',
+			data:{'cat_id': id},
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
+				layer.msg(data.message,{icon:data.status});
+				window.location.reload();
 			},
 			error:function(data) {
-				console.log(data.msg);
+				var result = JSON.parse(data.responseText);
+				
+				// 非200请求，获取错误消息
+                layer.msg(result.message,{icon:result.status});	
 			},
 		});
 	});

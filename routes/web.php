@@ -47,6 +47,10 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('/show','Admin\CategoryController@show');
     // 添加栏目页
     Route::match(['get', 'post'], '/add','Admin\CategoryController@add');
+    // 删除分类
+    Route::post('/delete', 'Admin\CategoryController@delete');
+    // 修改分类
+    Route::match(['get', 'post'], '/update/{id}', 'Admin\CategoryController@update');
 });
 // 后台system
 Route::group(['prefix' => 'system'], function () {
@@ -96,4 +100,13 @@ Route::group(['prefix' => 'Contacts'], function () {
     Route::match(['get', 'post'],'/update/{id}','Admin\ContactsController@update');
     // 状态显示状态切换
     Route::get('/switch','Admin\ContactsController@switchIsNewOpen');
+});
+// 登陆
+Route::group(['prefix' => 'Login'], function () {
+        // 登陆
+        Route::get('/login','Admin\AdminsController@login');
+        //注册
+        Route::get('/register','Admin\AdminsController@register');
+        //退出
+        Route::get('/sign','Admin\AdminsController@sign');
 });

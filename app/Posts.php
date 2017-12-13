@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class Posts extends Model
 {
     const STATUS_PUBLISH = 'PUBLISH'; // 已发布
-    const STATUS_DRAFT   = 'DRAFT'; // 草稿
+    const STATUS_DRAFT   = 'DRAFT';   // 草稿
     protected $primaryKey = 'post_id';
     protected $fillable = ['title','cat_id','excerpt','author','status','is_allow','is_page','markdown','html','image','slug'];
     /**

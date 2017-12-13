@@ -22,7 +22,7 @@ class NavigateController extends Controller
      */
     protected function formatValidationErrors(Validator $validator)
     {
-        return \App\Tools\ajax_exception(implode("\n",$validator->errors()->all()));
+        return \App\Tools\ajax_exception(\Config::get('constants.http_status_no_accept'),implode("\n",$validator->errors()->all()));
     }
     /**
      * 导航列表展示
@@ -49,11 +49,11 @@ class NavigateController extends Controller
             $value = $request->input('value',null);
             if(!isset($navId) || !isset($value))
             {
-                throw new HttpException(trans('common.paramer_exception'));
+                throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.paramer_exception'));
             }
             if(!$navigate = \App\Navigate::find($navId))
             {
-                throw new HttpException(trans('common.none_record'));
+                throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
             }
             $navigate->is_open = $value;
             if($navigate->save())
@@ -67,7 +67,7 @@ class NavigateController extends Controller
         }
         catch(\Exception $e)
         {
-            return \App\Tools\ajax_exception($e->getMessage());
+            return \App\Tools\ajax_exception($e->getStatusCode(), $e->getMessage());
         }
     }
     /**
@@ -117,7 +117,7 @@ class NavigateController extends Controller
             {
                 if(!$navigate)
                 {
-                    throw new HttpException(trans('common.none_record'));
+                    throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
                 }
                 // 验证数据
                 $this->validate($request, [
@@ -141,7 +141,7 @@ class NavigateController extends Controller
         }
         catch(\Exception $e)
         {
-            return \App\Tools\ajax_exception($e->getMessage());
+            return \App\Tools\ajax_exception($e->getStatusCode(), $e->getMessage());
         }
     }
     /**
@@ -158,7 +158,7 @@ class NavigateController extends Controller
                 $nid = $request->input('nid');
                 if(!$navigate = \App\Navigate::find($nid))
                 {
-                    throw new HttpException(trans('common.none_record'));
+                    throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
                 }
                 if($res = $navigate->delete())
                 {
@@ -172,7 +172,7 @@ class NavigateController extends Controller
         }
         catch(\Exception $e)
         {
-            return \App\Tools\ajax_exception($e->getMessage());
+            return \App\Tools\ajax_exception($e->getStatusCode(), $e->getMessage());
         }
     }
     /**
@@ -197,7 +197,7 @@ class NavigateController extends Controller
         }
         catch(\Exception $e)
         {
-            return \App\Tools\ajax_exception($e->getMessage());
+            return \App\Tools\ajax_exception($e->getStatusCode(), $e->getMessage());
         }        
     }
 }
