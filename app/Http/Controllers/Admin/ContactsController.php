@@ -92,7 +92,7 @@ class ContactsController extends Controller
                 $all['status']=1;
                 // 数据入库
                 $result = \App\Contacts::where('id',$id)->update($all);
-                var_dump($result);die;
+            
                 if($result)
                 {
                     return \App\Tools\ajax_success();

@@ -72,7 +72,7 @@ $(function(){
                     //var index = parent.layer.getFrameIndex(window.name);
 			        //parent.$('.btn-refresh').click();
                     //parent.layer.close(index);
-                   //parent.window.location.reload();
+                   parent.window.location.reload();
                 },
                 'error':function(data)
                 {                
