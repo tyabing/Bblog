@@ -30,10 +30,15 @@ Route::get('/admin/welcome','Admin\IndexController@welcome');
 Route::group(['prefix' => 'article'], function () {
 	// 文章列表
     Route::get('/show','Admin\ArticleController@show');
+    // 草稿列表
+    Route::get('/draft','Admin\ArticleController@draft');
     // 添加文章
     Route::match(['get', 'post'], '/add','Admin\ArticleController@add');
     // 删除文章
     Route::post('/delete','Admin\ArticleController@delete');
+    // 修改文章
+    Route::match(['get', 'post'], '/update/{id}','Admin\ArticleController@update');
+
     
 });
 // 后台category

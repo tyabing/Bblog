@@ -54,7 +54,8 @@
 							<input nav_id="{{$nav->nav_id}}" type="checkbox" @if($nav->is_open) checked @endif; />
 						</div>
                     </td>						
-					<td class="f-14"><a title="{{trans('common.do_update')}}" href="javascript:;" onclick="system_navigate_edit('{{trans('navigate.update')}}','/navigate/update','{{$nav->nav_id}}','800','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+					<td class="f-14">
+						<a title="{{trans('common.do_update')}}" href="javascript:;" onclick="system_navigate_edit('{{trans('navigate.update')}}','/navigate/update','{{$nav->nav_id}}','800','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
 						<a title="{{trans('common.do_delete')}}" href="javascript:;" onclick="system_navigate_del(this,'{{$nav->nav_id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
                 @endforeach

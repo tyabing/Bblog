@@ -22,6 +22,9 @@ return [
     'add_is_page'        => '使用单独页面',
     'add_image'          => '封面图',
     'add_markdown'       => '文章内容',
+    'add_submit'         => '保存并提交',
+    'add_temp_submit'    => '保存草稿',
+    'add_speak'          => '说点什么...最少输入10个字符',
 
     // 列表展示
     'show_header'        => '创作列表',
