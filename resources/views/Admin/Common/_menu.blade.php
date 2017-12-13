@@ -32,7 +32,7 @@
 			<dd>
 				<ul>
 					<li><a data-href="/comment/show" data-title="评论列表" href="javascript:;">评论列表</a></li>
-					<li><a data-href="/note/show" data-title="意见反馈" href="javascript:void(0)">留言列表</a></li>
+					<li><a data-href="/Contacts/message" data-title="意见反馈" href="javascript:void(0)">留言列表</a></li>
 				</ul>
 			</dd>
 		</dl>
