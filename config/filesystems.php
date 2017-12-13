@@ -45,23 +45,39 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root'   => storage_path('app'),
+        ],
+        "qiniu"  => [
+            'driver' => 'qiniu',
+            'domains'=> [
+                'default' => 'p0len7s39.bkt.clouddn.com', // 七牛域名
+                'https'   => '', // https域名
+                'custom'  => '', // Useles 没什么用，直接使用default即可
+
+            ],
+            'access_key' => 'Z3d8_OrnyWSfGaYmA0e82QZ5hazwPc4ieHimShmp',
+            'secret_key' => 'xcyIoVUgflrEqVH_LN80CMRvUUZi6iZSd_QANUU8',
+            'bucket'     => 'bblog',
+            'notify_url' => '', // 持久化处理回调地址（类似于加水印这样的二次操作才需要，avatar在这里的使用）
+            'access'     => 'public', // 空间访问控制 public or private
         ],
 
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'driver'     => 'local',
+            'root'       => storage_path('app/public'),
+            'url'        => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_KEY'),
+            'key'    => env('AWS_KEY'),
             'secret' => env('AWS_SECRET'),
             'region' => env('AWS_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
+
+
 
     ],
 
