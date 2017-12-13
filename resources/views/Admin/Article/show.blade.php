@@ -11,8 +11,8 @@
 		<select name="" class="select">
 			<option value="">全部分类</option>
 			@if(!empty($catList))
-			@foreach($catList as $val)
-				<option value="{{$val['cat_id']}}">{{$val['cat_name']}}</option>
+			@foreach($catList as $key => $val)
+				<option value="{{$key}}">{{$val}}</option>
 			@endforeach 
 			@endif
 		</select>
@@ -105,7 +105,7 @@ function article_del(obj,id){
 		$.ajax({
 			type: 'POST',
 			url: '/article/delete',
-			data: {'post_id': id},
+			data: {'post_id': id, 'status' : 'DRAFT'},
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

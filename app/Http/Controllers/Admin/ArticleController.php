@@ -40,7 +40,7 @@ class ArticleController extends Controller
     public function show()
     {
         $artList = Posts::getPublishList();
-        $catList = (new Categories)->getList();
+        $catList = (new Categories)->levelCatList();
         return view('Admin/Article/show', ['artList' => $artList, 'catList' => $catList]);
     }
     /**
@@ -51,7 +51,7 @@ class ArticleController extends Controller
     public function draft()
     {
         $artList = Posts::getDraftList();
-        $catList = (new Categories)->getList();
+        $catList = (new Categories)->levelCatList();
         return view('Admin/Article/draft', ['artList' => $artList, 'catList' => $catList]);
     }
     /**
@@ -91,7 +91,9 @@ class ArticleController extends Controller
         {
             if($request->method('post') && $request->ajax())
             {
-                $pid = intval($request->input('post_id'));
+                $pid    = intval($request->input('post_id'));
+                $status = $request->input('status');
+                print_r($status);die;
                 if(!$article = Posts::find($pid))
                 {
                     throw new HttpException(trans('common.none_record'));

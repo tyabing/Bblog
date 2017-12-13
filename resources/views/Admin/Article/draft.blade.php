@@ -11,8 +11,8 @@
 		<select name="" class="select">
 			<option value="">全部分类</option>
 			@if(!empty($catList))
-			@foreach($catList as $val)
-				<option value="{{$val['cat_id']}}">{{$val['cat_name']}}</option>
+			@foreach($catList as $key => $val)
+				<option value="{{$key}}">{{$val}}</option>
 			@endforeach 
 			@endif
 		</select>
