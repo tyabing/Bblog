@@ -92,3 +92,12 @@ Route::group(['prefix' => 'Contacts'], function () {
     // 状态显示状态切换
     Route::get('/switch','Admin\ContactsController@switchIsNewOpen');
 });
+// 登陆
+Route::group(['prefix' => 'Login'], function () {
+        // 登陆
+        Route::get('/login','Admin\AdminsController@login');
+        //注册
+        Route::get('/register','Admin\AdminsController@register');
+        //退出
+        Route::get('/sign','Admin\AdminsController@sign');
+});
