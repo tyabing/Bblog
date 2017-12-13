@@ -44,10 +44,11 @@ class SystemController extends Controller
 
     public function setadd(Request $request){
 
+
         if($request->isMethod('POST')) {
             $res = $request->all();
             $return= (new SetsModel())->saveSet($res);
-           // var_dump($return);die;
+         
             if($return)
             {
                 return ['status'=>Config::get('constants.status_success'),'message'=>trans('common.message_success')];
@@ -58,7 +59,7 @@ class SystemController extends Controller
             }
         }
 
-       // return redirect('system/setting');
+
     }
 
 }

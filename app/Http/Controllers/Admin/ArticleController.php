@@ -79,6 +79,7 @@ class ArticleController extends Controller
         return view('Admin/Article/add')->with('catList', $catList);
     }
 
+
     /**
      * article the delete
      *
