@@ -4,7 +4,7 @@
 </head>
 <body>
 <div class="page-container">
-	<form action="/category/add" method="post" class="form form-horizontal" id="form-category-add">
+	<form class="form form-horizontal" id="form-category-add">
 		<div id="tab-category" class="HuiTab">
 			{{csrf_field()}}
 			<div class="tabCon">
@@ -17,7 +17,11 @@
 						<select class="select" id="sel_Sub" name="parent_id" onchange="SetSubID(this);">
 							<option value="0">{{trans('category.add_top')}}</option>
 							<?php foreach($catList as $key => $val): ?>
-								<option value="<?= $key?>"><?= $val?></option>
+								@if($catFind->parent_id == $key)
+									<option value="<?= $key?>" selected><?= $val?></option>
+								@else
+									<option value="<?= $key?>"><?= $val?></option>
+								@endif
 							<?php endforeach; ?>
 						</select>
 						</span>
@@ -30,7 +34,7 @@
 						<span class="c-red">*</span>
 						{{trans('category.add_cat_name')}}：</label>
 					<div class="formControls col-xs-8 col-sm-9">
-						<input type="text" class="input-text" value="" placeholder="" id="cat_name" name="cat_name">
+						<input type="text" class="input-text" value="{{$catFind->cat_name}}" placeholder="" id="cat_name" name="cat_name">
 					</div>
 					<div class="col-3">
 					</div>
@@ -86,7 +90,6 @@ $(function(){
 		submitHandler:function(form){
 			$(form).ajaxSubmit({
 				type: 'post',
-				url: "/category/add",
 				success: function (data) {
 					layer.msg(data.message, {icon:data.status});
 					parent.window.location.reload();

@@ -19,7 +19,6 @@
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
-		<a href="javascript:;" onclick="batch_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a>
 		</span>
 		<span class="r">{{trans('common.total_count')}}：<strong>{{count($contactsList)}}</strong> {{trans('common.item')}}</span>
 	</div>
@@ -47,11 +46,13 @@
 					<td>{{$con->subject}}</td>
 					<td>{{$con->email}}</td>
 					<td>
-						<div class="switch size-S" data-on="success" data-off="warning">
-							<input id="{{$con->id}}" type="checkbox" @if($con->status) checked @endif; />
-						</div>
+					@if($con->status == 1)
+					<span class="label label-deflut radius">{{trans('contacts.con_read')}}</span>
+				     @else
+					<span class="label label-success radius">{{trans('contacts.con_no_read')}}</span>
+			    	@endif
                     </td>						
-					<td class="f-14"><a title="{{trans('common.do_update')}}" href="javascript:;" onclick="system_navigate_edit('{{trans('navigate.update')}}','/Contacts/update','{{$con->id}}','800','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+					<td class="f-14"><a title="{{trans('contacts.con_details')}}" href="javascript:;" onclick="system_navigate_edit('{{trans('contacts.con_details')}}','/Contacts/update','{{$con->id}}','800','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe725;</i></a>
 						<a title="{{trans('common.do_delete')}}" href="javascript:;" onclick="system_navigate_del(this,'{{$con->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
                 @endforeach
@@ -75,19 +76,7 @@
 <!-- <script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script> -->
 
 <script type="text/javascript">
-/**是否新标签打开状态切换 */
-$('.switch').on('switch-change', function (e, data) {
-	var $el = $(data.el)
-		, _this = $(this)
-		, id = $el.attr('id')
-	  	, value = (data.value) ? 1 : 0;
-	  
-	$.get('/Contacts/switch',{'id':id,'value':value},function(data){
-		layer.msg(data.message,{icon:data.status});
-		//如果后台有异常仅语言提示、暂不自动切换回来
-		//$(_this).bootstrapSwitch('setState', !$el.prop('checked'));
-	})
-});
+
 /*系统-导航-编辑*/
 function system_navigate_edit(title,url,id,w,h){
     layer_show(title,url+"/"+id,w,h);

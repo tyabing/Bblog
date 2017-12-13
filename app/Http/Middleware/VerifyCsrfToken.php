@@ -12,6 +12,7 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        'article/delete',
+        'article/delete',  // 文章删除
+        'category/delete', // 分类删除
     ];
 }

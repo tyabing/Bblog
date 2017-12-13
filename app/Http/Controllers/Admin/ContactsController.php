@@ -18,9 +18,7 @@ class ContactsController extends Controller
      */
     protected function formatValidationErrors(Validator $validator)
     {
-
-        return ajax_exception(implode("\n",$validator->errors()->all()));
-
+        return \App\Tools\ajax_exception(\Config::get('constants.http_status_no_accept'),implode("\n",$validator->errors()->all()));
     }
 
     //展示页面
@@ -28,7 +26,7 @@ class ContactsController extends Controller
 
         $name = $request->input('name',null);
 
-        $contactsList = \App\Contacts::where('name','like',"%$name%")->where(['status'=>0])->orderBy('id','desc')->paginate(Config::get('constants.page_size'));
+        $contactsList = \App\Contacts::where('name','like',"%$name%")->orderBy('status','asc')->paginate(Config::get('constants.page_size'));
         return view('Admin/Contacts/show', ['contactsList' => $contactsList,'name'=>$name]);
     
     }
@@ -48,8 +46,7 @@ class ContactsController extends Controller
 
                 if(!$Contacts = \App\Contacts::find($id))
                 {
-
-                    throw new HttpException(trans('common.none_record'));
+                    throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
                 }
                 if($res = $Contacts->delete())
                 {
@@ -64,7 +61,7 @@ class ContactsController extends Controller
         }
         catch(\Exception $e)
         {
-            return \App\Tools\ajax_exception($e->getMessage());
+            return \App\Tools\ajax_exception($e->getStatusCode(), $e->getMessage());
         }
     }
 
@@ -85,14 +82,14 @@ class ContactsController extends Controller
             {
                 if(!$Contacts)
                 {
-                    throw new HttpException(trans('common.none_record'));
+                    throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
                 }
 
                 $all = $request->except('_token');
-
+                $all['status']=1;
                 // 数据入库
-                $result = \App\Contacts::where('id',$id)->update(['status'=>1]);
-
+                $result = \App\Contacts::where('id',$id)->update($all);
+            
                 if($result)
                 {
                     return \App\Tools\ajax_success();
@@ -106,7 +103,7 @@ class ContactsController extends Controller
         }
         catch(\Exception $e)
         {
-            return \App\Tools\ajax_exception($e->getMessage());
+            return \App\Tools\ajax_exception($e->getStatusCode() ,$e->getMessage());
         }
     }
     /**
@@ -123,11 +120,11 @@ class ContactsController extends Controller
             $value = $request->input('value',null);
             if(!isset($id) || !isset($value))
             {
-                throw new HttpException(trans('common.paramer_exception'));
+                throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.paramer_exception'));
             }
             if(!$Contacts = \App\Contacts::find($id))
             {
-                throw new HttpException(trans('common.none_record'));
+                throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
             }
             $Contacts->status = $value;
 
@@ -142,7 +139,7 @@ class ContactsController extends Controller
         }
         catch(\Exception $e)
         {
-            return \App\Tools\ajax_exception($e->getMessage());
+            return \App\Tools\ajax_exception($e->getStatusCode(), $e->getMessage());
         }
     }
 

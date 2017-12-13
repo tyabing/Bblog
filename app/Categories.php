@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categories extends Model
 {
     const PARENTID = 0;
+    protected $primaryKey = 'cat_id';
     /**
      * 获取所有分类信息
      *
@@ -75,10 +76,12 @@ class Categories extends Model
     {
         $arr = [];
         $catList = self::recursion($data);
+        
         foreach($catList as $key => $val)
         {
             $arr[$val['cat_id']] = str_repeat("　　|", $val['level']).$val['cat_name'];
         }
         return $arr;
     }
+
 }

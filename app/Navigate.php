@@ -23,16 +23,5 @@ class Navigate extends Model
     protected $fillable = ['nav_name','jump_url','is_open'];
 
 
-    /**
-     * 查询导航列表
-     *
-     * @return void
-     */
-    static public function getNavigates($skip=0,$take=15)
-    {
-        $count = DB::table('navigates')->count();
-        $navigates = DB::table('navigates')->skip($skip)->take($take)->get();
-        return ['draw'=>1,'recordsFiltered'=>'15','recordsTotal'=>$count,'data'=>$navigates];
-    }
 
 }

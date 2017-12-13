@@ -23,6 +23,8 @@ return [
     'show_add_category' => '添加栏目',
     'show_list_catname' => '栏目名称',
     
-
+    // 分类删除
+    'delete_message'    => '该分类下有子分类,无法直接删除',
+    'del_art_message'   => '该分类下有文章,无法直接删除',
 
 ];

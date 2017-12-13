@@ -10,6 +10,7 @@ namespace App\Tools;
  * @Last Modified time: 2017-12-11 17:35:47
  */
 
+use \Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 /** 开发调试函数 */
@@ -40,9 +41,11 @@ function ajax_error()
 }
 
 /** Ajax 操作异常响应消息 */
-function ajax_exception($message="")
+function ajax_exception($statusCode,$message='')
 {
-    return ['status'=>\Config::get('constants.status_danger'),'message'=>$message];
+    if(empty($message)) $message = trans('common.server_exception');
+    $data = ['status'=>\Config::get('constants.status_danger'),'message'=>$message];
+    return response()->json($data, $statusCode);
 }
 
 
