@@ -201,7 +201,8 @@ class ArticleController extends Controller
                 // storage确认存储位置，file获取全部文件内容
                 if(\Storage::disk('qiniu')->put($newFileName, \File::get($request->file('image')->path())))
                 {
-                    return (\Storage::disk('qiniu')->getDriver()->downloadUrl($newFileName))->getUrl();
+                    $img = (\Storage::disk('qiniu')->getDriver()->downloadUrl($newFileName));
+                    return $img->getUrl();
                 }
             }
     }
