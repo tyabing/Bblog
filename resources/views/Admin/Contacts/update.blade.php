@@ -1,6 +1,6 @@
 @include('Admin.Common._meta')
 
-<title>{{trans('common.navigate_set')}}</title>
+<title>{{trans('contacts.con_details')}}</title>
 </head>
 <body>
 <div class="page-container">
@@ -10,7 +10,7 @@
 			<div class="tabCon">
             <h4 align="center">用户：<span style="color: red;">{{$Contacts->name}}</span>为您留的言</h4>
 
-					<textarea class="textarea" style="width:98%; height:300px; resize:non">
+					<textarea class="textarea" style="width:98%; height:250px; resize:non">
 							@if(isset($Contacts->message))
 								{{$Contacts->message}}
 								@endif
@@ -20,8 +20,8 @@
 
 		</div>
 		<div class="row cl">
-			<div class="col-9 col-offset-7">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;{{trans('common.form_submit')}}&nbsp;&nbsp;">
+			<div class="col-6 col-offset-6">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;{{trans('contacts.con_close')}}&nbsp;&nbsp;">
 			</div>
 		</div>
 	</form>
