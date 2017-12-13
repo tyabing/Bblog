@@ -105,7 +105,7 @@ function article_del(obj,id){
 		$.ajax({
 			type: 'POST',
 			url: '/article/delete',
-			data: {'post_id': id, 'status' : 'DRAFT'},
+			data: {'post_id': id},
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

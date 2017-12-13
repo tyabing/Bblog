@@ -20,7 +20,7 @@ class Categories extends Model
      */
     public function getList()
     {
-        return $this->select()->where(['parent_id' => self::PARENTID])->get();
+        return $this->select('cat_id', 'cat_name')->get()->toArray();
     }
     /**
      * 添加操作

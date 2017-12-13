@@ -5,6 +5,7 @@
 			<dd>
 				<ul>
 					<li><a data-href="/article/show"   data-title="创作列表" href="javascript:void(0)">创作列表</a></li>
+					<li><a data-href="/article/draft"  data-title="草稿箱"   href="javascript:void(0)">草稿箱</a></li>
 					<li><a data-href="/category/show"  data-title="栏目管理" href="javascript:void(0)">分类栏目</a></li>
 				</ul>
 			</dd>
