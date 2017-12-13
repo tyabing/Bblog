@@ -29,7 +29,7 @@ class ArticleController extends Controller
      */
     protected function formatValidationErrors(Validator $validator)
     {
-        return \App\Tools\ajax_exception(implode("\n",$validator->errors()->all()));
+        return \App\Tools\ajax_exception(\Config::get('constants.http_status_no_accept'),implode("\n",$validator->errors()->all()));
     }
 
     /**
@@ -94,10 +94,9 @@ class ArticleController extends Controller
             {
                 $pid    = intval($request->input('post_id'));
                 $status = $request->input('status');
-                print_r($status);die;
                 if(!$article = Posts::find($pid))
                 {
-                    throw new HttpException(trans('common.none_record'));
+                    throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
                 }
                 if($res = $article->delete())
                 {
@@ -111,7 +110,7 @@ class ArticleController extends Controller
         }
         catch(\Exception $e)
         {
-            return \App\Tools\ajax_exception($e->getMessage());
+            return \App\Tools\ajax_exception($e->getStatusCode(),$e->getMessage());
         }
     }
 
