@@ -19,6 +19,9 @@ return [
     'refresh'           =>  'The refresh',
     'com_of_mes'        =>  'comments',
 
+     /** On the top side of the menu bar */
+    'date_range'        =>   'Date Range',
+
     /** Operating hints */
     'message_success'   => 'Operation is successful.',
     'message_failure'   => 'Operation failure.',

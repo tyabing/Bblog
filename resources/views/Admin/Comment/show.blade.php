@@ -1,46 +1,46 @@
 @include('Admin.Common._meta')
 
-<title>评论列表</title>
+<title>{{trans('common.comment_list')}}</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 评论留言 <span class="c-gray en">&gt;</span> 评论列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> {{trans('common.home')}}
+	<span class="c-gray en">&gt;</span>
+	{{trans('common.com_of_mes')}}
+	<span class="c-gray en">&gt;</span>
+	{{trans('common.comment_list')}}
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
 <div class="page-container">
 	<div class="text-c">
-		<button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-	 <span class="select-box inline">
-		<select name="" class="select">
-			<option value="0">全部文章</option>
-			<option value="1">文章一</option>
-			<option value="2">文章二</option>
-		</select>
-		</span> 日期范围：
-		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
-		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;">
-		<input type="text" name="" id="" placeholder=" 文章名称" style="width:250px" class="input-text">
-		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜评论</button>
+		<form action="" method="get">
+		 <span class="select-box inline">
+			</span> {{trans('common.date_range')}}
+			<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;" name="start" value="{{$find['start']}}">
+			-
+			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;" name="end" value="{{$find['end']}}">
+			<input type="text" name="title" id="" placeholder="{{trans('comment.posts_name')}}" style="width:250px" class="input-text" value="{{$find['title']}}">
+			<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> {{trans('comment.find_comment')}}</button>
+		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="batch_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a> <span class="r">{{trans('common.total_count')}}：<strong></strong> {{trans('common.item')}}</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" disabled></th>
-					<th width="100">ID</th>
-					<th>评论内容</th>
-					<th width="100">所属文章</th>
+					<th>{{trans('comment.comment_content')}}</th>
+					<th width="100">{{trans('comment.belong_post')}}</th>
 					<th width="100">IP</th>
 					<th width="75">email</th>
-					<th width="125">评论时间</th>
-					<th width="100">操作</th>
+					<th width="125">{{trans('common.created_at')}}</th>
+					<th width="100">{{trans('common.do')}}</th>
 				</tr>
 			</thead>
 			<tbody>
 			@if(!empty($mentList))
 			@foreach($mentList as $key => $obj)
 				<tr class="text-c">
-					<td><input type="checkbox" name="" objue="{{$key}}"></td>
-					<td>{{$key}}</td>
+					<td><input type="checkbox" name="com_id[]" value="{{$key}}"></td>
 					<td class="text-l">{{$obj['content']}}</td>
 					<td class="text-l">{{$obj['title']}}</td>
 					<td class="text-l">{{$obj['ip']}}</td>
@@ -48,9 +48,9 @@
 					<td class="text-l">{{$obj['created_at']}}</td>
 					<td class="f-14">
 					@if($obj['level']==0)
-						<a title="回复" href="javascript:void(0)" onclick="system_category_edit('回复评论','/comment/add', '{{$key}}','700','480')"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="{{trans('comment.replay')}}" href="javascript:void(0)"  onclick="comment_replay('{{trans('comment.replay')}}','/comment/replay', '{{$key}}','500','280')"  style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
 					@endif
-						<a title="删除" href="javascript:void(0)"  onclick="comment_del(this, '{{$key}}',{{$obj['level']}})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+						<a title="{{trans('common.do_delete')}}" href="javascript:void(0)"  onclick="comment_del(this, '{{$key}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 					</td>
 				</tr>
 			@endforeach
@@ -58,6 +58,9 @@
 				
 			</tbody>
 		</table>
+		 <div class="r">
+            {{$ment->appends(['title'=>$find['title'],'start'=>$find['start'],'end'=>$find['end']])->links()}}        
+        </div>
 	</div>
 </div>
 <!--_footer 作为公共模版分离出去-->
@@ -71,22 +74,33 @@
 <script type="text/javascript">
 
 
-// /*资讯-编辑*/
-// function article_edit(title,url,id,w,h){
-// 	var index = layer.open({
-// 		type: 2,
-// 		title: title,
-// 		content: url
-// 	});
-// 	layer.full(index);
-// }
+/*评论列表-批量删除*/
+function batch_delete()
+{
+	layer.confirm('{{trans('common.ask_delete')}}',function(index){
+		var comids = [];
+		// 获取选中ID
+		$('input[name="com_id[]"]').each(function(index,obj){
+			$(obj).prop('checked') ? comids.push($(obj).val()) : '';
+		})
+		// alert(comids);
+		$.post('/comment/del',{'comids':comids,'_token':"{{ csrf_token() }}"},function(data){
+			layer.msg(data.message,{icon:data.status});
+			window.location.reload();
+		})		
+	});
+}
+/**进行回复**/
+function comment_replay(title,url,id,w,h){
+	layer_show(title,url+"/"+id,w,h);
+}
 /*评论-删除*/
-function comment_del(obj,id,level){
-	layer.confirm('确认要删除吗？',function(index){
+function comment_del(obj,id){
+	layer.confirm('{{trans('common.ask_delete')}}',function(index){
 		$.ajax({
 			type: 'POST',
 			url: '/comment/del',
-			data:{'_token':"{{ csrf_token() }}",'com_id':id,'level':level},
+			data:{'_token':"{{ csrf_token() }}",'com_id':id},
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

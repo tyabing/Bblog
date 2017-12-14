@@ -121,9 +121,9 @@ Route::group(['prefix' => 'Login'], function () {
 Route::group(['prefix' => 'comment'], function(){
     // 评论列表
     Route::match(['get', 'post'],'/show', 'Admin\CommentController@show');
+    //评论删除
     Route::post('/del', 'Admin\CommentController@del');
-    // // 图库添加
-    // Route::get('/add', 'Admin\GalleriesController@add');
-    
+    //评论回复
+    Route::match(['get', 'post'],'/replay/{id?}', 'Admin\CommentController@replay');    
 });
 
