@@ -13,18 +13,14 @@ return [
     'add_header'         => 'Add the information',
     'add_article_title'  => 'New articles - information management',
     'add_title'          => 'Article title',
-    'add_slug'           => 'A unique identifier',
     'add_cat_id'         => 'Category column',
     'add_cat_value'      => 'Please select a category',
-    'add_excerpt'        => 'The article based on',
     'add_author'         => 'The authors',
     'add_is_allow'       => 'Allow comments',
     'add_is_page'        => 'A separate page',
-    'add_image'          => 'cover',
     'add_markdown'       => 'The article content',
     'add_submit'         => 'Save and submit',
     'add_temp_submit'    => 'Save drafts',
-    'add_speak'          => 'Say something...At least 10 characters input',
 
     // The list shows
     'show_header'        => 'Create a list of',

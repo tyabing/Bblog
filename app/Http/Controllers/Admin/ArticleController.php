@@ -22,14 +22,14 @@ class ArticleController extends Controller
 {
 
     /**
-     * 验证失败返回格式自定义-暂未使用
+     * 验证失败返回格式自定义
      *
      * @param Validator $validator
      * @return void
      */
     protected function formatValidationErrors(Validator $validator)
     {
-        return \App\Tools\ajax_exception(\Config::get('constants.http_status_no_accept'),implode("\n",$validator->errors()->all()));
+        return \App\Tools\ajax_exception(\Config::get('constants.http_status_conflict'),implode("\n",$validator->errors()->all()));
     }
 
     /**
@@ -49,12 +49,12 @@ class ArticleController extends Controller
      *
      * @return void
      */
-    public function draft()
+    public function draft(Request $request)
     {
         $title   = $request->input('title', null);
         $artList = Posts::getPublishList(Posts::STATUS_DRAFT, $title);
         $catList = (new Categories)->levelCatList();
-        return view('Admin/Article/draft', ['artList' => $artList, 'catList' => $catList]);
+        return view('Admin/Article/draft', ['artList' => $artList, 'catList' => $catList, 'title' => $title]);
     }
     /**
      * create the new article 
@@ -67,16 +67,18 @@ class ArticleController extends Controller
         $catList = (new Categories)->levelCatList(); // 获取前台所需要的层级分类列表
         if($request->isMethod('post') && $request->ajax())
         {
-            $post = $this->publicAddAndUpdate($request, $type = 'add'); // 调用公共的添加和修改方法
-            if(Posts::create($post))
+            // 验证标题的唯一性      
+            $this->validate($request, ['title'  => 'required|unique:posts|max:120']);
+            $post = $request->all();
+            $post['html'] = $post['markdown'];
+            if($res = Posts::create($post))
             {
                 return \App\Tools\ajax_success();
             }
             else
             {
                 return \App\Tools\ajax_error();
-            }  
-
+            }
         }
         return view('Admin/Article/add')->with('catList', $catList);
     }
@@ -141,12 +143,17 @@ class ArticleController extends Controller
         {
             if($request->ajax() && $request->method('post'))
             {
+                // 验证
+                $this->validate($request, [
+                    'title'  => 'required|max:120',
+                ]);
                 if(!$artFind)
                 {
-                    throw new HttpException(trans('common.none_record'));
+                    throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
                 }
                 // 调用公共的添加和修改的方法
-                $post = $this->publicAddAndUpdate($request, $type = 'update', $artFind);
+                $post = $request->except('_token');
+                $post['html'] = $post['markdown'];
                 $res  = Posts::where(['post_id' => $aid])->update($post); // 修改入库
                 if($res)
                 {
@@ -166,36 +173,6 @@ class ArticleController extends Controller
         
     }
 
-    /**
-     * 公共的添加和修改操作数据
-     *
-     * @return void
-     */
-    protected function publicAddAndUpdate($request, $type, $artFind = '')
-    {
-        if($type == 'add')
-        {
-            // 验证
-            $this->validate($request, [
-                'title'  => 'required|unique:posts|max:120',
-                'slug'   => 'required|unique:posts|max:20',
-            ]);
-            $post = $request->all();
-            empty($post['image']) ? $post['image'] = '' : $post['image'] = $this->uploadFile($request);
-        }
-        else
-        {
-            // 验证
-            $this->validate($request, [
-                'title'  => 'required|max:120',
-                'slug'   => 'required|max:20',
-            ]);
-            $post = $request->except('_token');
-            empty($post['image']) ? $post['image'] = $artFind['image'] : $post['image'] = $this->uploadFile($request);
-        }
-        $post['html'] = $post['markdown'];
-        return $post;
-    }
 
     /**
      * 文件上传

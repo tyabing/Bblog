@@ -18,7 +18,7 @@ class Posts extends Model
     const STATUS_PUBLISH = 'PUBLISH'; // 已发布
     const STATUS_DRAFT   = 'DRAFT';   // 草稿
     protected $primaryKey = 'post_id';
-    protected $fillable = ['title','cat_id','excerpt','author','status','is_allow','is_page','markdown','html','image','slug'];
+    protected $fillable = ['title','cat_id','author','status','is_allow','is_page','markdown','html'];
     /**
      * get article list info
      *
