@@ -55,7 +55,6 @@
 <script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script> -->
 <script type="text/javascript">
-
 /*系统-栏目-添加*/
 function system_category_add(title,url,w,h){
 	layer_show(title,url,w,h);

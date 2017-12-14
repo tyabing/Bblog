@@ -16,6 +16,14 @@
 
         'con_message' =>'The message information',
 
-        'con_status'  =>'state'
+        'con_status'  =>'state',
+
+        'con_details' =>'Details of the message',
+        
+        'con_close'   =>'close',
+
+        'con_read'    =>'read',
+        
+        'con_no_read' =>'noread'
         ]
  ?>

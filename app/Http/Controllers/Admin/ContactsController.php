@@ -26,7 +26,7 @@ class ContactsController extends Controller
 
         $name = $request->input('name',null);
 
-        $contactsList = \App\Contacts::where('name','like',"%$name%")->where(['status'=>0])->orderBy('id','desc')->paginate(Config::get('constants.page_size'));
+        $contactsList = \App\Contacts::where('name','like',"%$name%")->orderBy('status','asc')->paginate(Config::get('constants.page_size'));
         return view('Admin/Contacts/show', ['contactsList' => $contactsList,'name'=>$name]);
     
     }
@@ -86,10 +86,10 @@ class ContactsController extends Controller
                 }
 
                 $all = $request->except('_token');
-
+                $all['status']=1;
                 // 数据入库
-                $result = \App\Contacts::where('id',$id)->update(['status'=>1]);
-
+                $result = \App\Contacts::where('id',$id)->update($all);
+            
                 if($result)
                 {
                     return \App\Tools\ajax_success();

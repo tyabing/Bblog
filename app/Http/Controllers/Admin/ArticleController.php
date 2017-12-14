@@ -2,8 +2,8 @@
 /*
  * @Author: zhangtao 
  * @Date: 2017-12-11 16:29:53 
- * @Last Modified by: zhangtao
- * @Last Modified time: 2017-12-11 17:12:36
+ * @Last Modified by: DingBing
+ * @Last Modified time: 2017-12-14 10:27:09
  */
 
 namespace App\Http\Controllers\Admin;
@@ -113,7 +113,6 @@ class ArticleController extends Controller
             return \App\Tools\ajax_exception($e->getStatusCode(),$e->getMessage());
         }
     }
-
     /**
      * update the article
      *

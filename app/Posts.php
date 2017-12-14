@@ -2,8 +2,8 @@
 /*
  * @Author: zhangtao 
  * @Date: 2017-12-04 15:55:48 
- * @Last Modified by: zhangtao
- * @Last Modified time: 2017-12-11 17:12:21
+ * @Last Modified by: DingBing
+ * @Last Modified time: 2017-12-14 10:26:26
  */
 namespace App;
 
@@ -51,6 +51,27 @@ class Posts extends Model
     public function cat()
     {
         return $this->belongsTo('App\Categories', 'cat_id', 'cat_id');
+    }
+    /**
+     * 获取一条
+     * @param  [type] $where [description]
+     * @return [type]        [description]
+     */
+    public function getOne($where){
+        return $this->select('title')->where(['post_id'=>$where])->first()->toArray();
+    }
+    /**
+     * 获取对应的文章名称
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function getPost($data)
+    {
+        foreach ($data as $key => $value) {
+            $title=$this->getOne($value['post_id']);
+            $data[$key]['title']=$title['title'];
+        }
+        return $data;        
     }
 
    

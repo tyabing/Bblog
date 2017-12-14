@@ -101,3 +101,29 @@ Route::group(['prefix' => 'Contacts'], function () {
     // 状态显示状态切换
     Route::get('/switch','Admin\ContactsController@switchIsNewOpen');
 });
+// 后台admin（个人中心）
+Route::group(['prefix' => 'AdminUsers'],function(){
+    // 个人中心
+    Route::any('/information','Admin\AdminUsersController@user_information');
+
+});
+// 登陆
+Route::group(['prefix' => 'Login'], function () {
+        // 登陆
+        Route::get('/login','Admin\AdminsController@login');
+        //注册
+        Route::get('/register','Admin\AdminsController@register');
+        //退出
+        Route::get('/sign','Admin\AdminsController@sign');
+});
+
+// 后台comment
+Route::group(['prefix' => 'comment'], function(){
+    // 评论列表
+    Route::match(['get', 'post'],'/show', 'Admin\CommentController@show');
+    Route::post('/del', 'Admin\CommentController@del');
+    // // 图库添加
+    // Route::get('/add', 'Admin\GalleriesController@add');
+    
+});
+
