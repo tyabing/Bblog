@@ -139,7 +139,6 @@ class ArticleController extends CommonController
                 {
                     throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
                 }
-                // 调用公共的添加和修改的方法
                 $post = $request->except('_token');
                 $post['html'] = $post['markdown'];
                 $res  = Posts::where(['post_id' => $aid])->update($post); // 修改入库
