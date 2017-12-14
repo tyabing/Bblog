@@ -24,25 +24,17 @@ class Posts extends Model
      *
      * @return void
      */
-    static public function getPublishList()
+    static public function getPublishList($type, $title = '')
     {
-        return self::select('post_id','title','author','cat_id','read_num','updated_at','status')
-            ->where(['status' => self::STATUS_PUBLISH])
-            ->orderBy('post_id', 'desc')
-            ->paginate(Config::get('constants.page_size'));
+        $query = self::select('post_id','title','author','cat_id','read_num','updated_at','status')
+            ->where(['status' => $type]);
+        if(!empty($title))
+        {
+           $query = $query->orWhere('title', 'like', "%$title%");
+        }
+        return $query->orderBy('post_id', 'desc')->paginate(Config::get('constants.page_size'));
     }
-    /**
-     * 获取文章草稿列表
-     *
-     * @return void
-     */
-    static public function getDraftList()
-    {
-        return self::select('post_id','title','author','cat_id','read_num','updated_at','status')
-            ->where(['status' => self::STATUS_DRAFT])
-            ->orderBy('post_id', 'desc')
-            ->paginate(Config::get('constants.page_size'));
-    }
+
     /**
      * 分类的关联
      *

@@ -37,11 +37,12 @@ class ArticleController extends Controller
      *
      * @return void
      */
-    public function show()
+    public function show(Request $request)
     {
-        $artList = Posts::getPublishList();
+        $title   = $request->input('title', null);
+        $artList = Posts::getPublishList(Posts::STATUS_PUBLISH, $title);
         $catList = (new Categories)->levelCatList();
-        return view('Admin/Article/show', ['artList' => $artList, 'catList' => $catList]);
+        return view('Admin/Article/show', ['artList' => $artList, 'catList' => $catList, 'title' => $title]);
     }
     /**
      * 草稿文件列表
@@ -50,7 +51,8 @@ class ArticleController extends Controller
      */
     public function draft()
     {
-        $artList = Posts::getDraftList();
+        $title   = $request->input('title', null);
+        $artList = Posts::getPublishList(Posts::STATUS_DRAFT, $title);
         $catList = (new Categories)->levelCatList();
         return view('Admin/Article/draft', ['artList' => $artList, 'catList' => $catList]);
     }
@@ -97,6 +99,17 @@ class ArticleController extends Controller
                 if(!$article = Posts::find($pid))
                 {
                     throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
+                }
+                if(!empty($status))
+                {
+                    if($article::where(['post_id' => $pid])->update(['status' => $status]))
+                    {
+                        return \App\Tools\ajax_success();
+                    }
+                    else
+                    {
+                        return \App\Tools\ajax_error();
+                    }
                 }
                 if($res = $article->delete())
                 {
