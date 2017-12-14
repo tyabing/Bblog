@@ -90,13 +90,12 @@ class CommentController extends Controller
                 $all['admin_id']=env('BLOGGER_ID','1');//ahmad
                 $all['nickname']=env('BLOGGER_NAME','ahmad');
                 $all['email']=env('BLOGGER_EMAIL','ahmad@sina.com');
-                // var_dump($all);die;
                 if(empty($all))
                 {
                     throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.message_failure'));
                 }
                 //数据入库
-                $result = \App\Comments::create($all);
+                $result = (new Comments)->insertGetId($all);
                 if($result)
                 {   
                     return \App\Tools\ajax_success();

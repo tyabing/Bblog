@@ -15,7 +15,7 @@ class Comments extends Model
      */
     public function getList($where=array())
     {
-        return $this->where($where)->paginate(1);
+        return $this->where($where)->orderBy('parent_id','asc')->paginate(1);
     }
     /** 
      * 有条件查询
@@ -87,7 +87,7 @@ class Comments extends Model
     static public function getCommentList($data = [])
     {
         $arr = [];
-        $catList = self::recursion($data);
+        $catList = self::recursion($data,'',$data[0]->parent_id);
         foreach($catList as $key => $val)
         {
 
