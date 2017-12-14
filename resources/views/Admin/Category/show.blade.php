@@ -12,7 +12,7 @@
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
-		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a>
+		<!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a> -->
 		<a class="btn btn-primary radius" onclick="system_category_add('{{trans('category.show_add_category')}}','/category/add','600','400')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> {{trans('category.show_add_category')}}</a>
 		</span>
 		<span class="r">{{trans('common.total_count')}}：<strong><?= count($catList)?></strong> {{trans('common.item')}}</span>

@@ -13,12 +13,6 @@
 				<input type="text" class="input-text" value="{{$artFind->title}}" placeholder="" id="articletitle" name="title">
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_slug')}}：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="{{$artFind->slug}}" placeholder="" id="slug" name="slug">
-			</div>
-		</div>
 		{{csrf_field()}}
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_cat_id')}}：</label>
@@ -63,23 +57,6 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">{{trans('article.add_image')}}：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div class="uploader-thum-container">
-                    <img src="{{$artFind->image}}" width="50" height="50">
-					<input type="file" name="image">
-				</div>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_excerpt')}}：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="excerpt" cols="" rows="" class="textarea"  placeholder="{{trans('article.add_speak')}}" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)">{{$artFind->excerpt}}</textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
-			</div>
-		</div>
-		<div class="row cl">
-			<!-- <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{trans('article.add_markdown')}}：</label> -->
 			<div id="test-editormd">
 				<textarea name="markdown" id="article_content" style="display:none;">{{$artFind->markdown}}</textarea>
 			</div>
@@ -129,13 +106,7 @@ $(function(){
 			title:{
 				required:true,
 			},
-			slug:{
-				required:true,
-			},
 			cat_id:{
-				required:true,
-			},
-			excerpt:{
 				required:true,
 			},
 			author:{

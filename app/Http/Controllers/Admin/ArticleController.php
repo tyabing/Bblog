@@ -20,28 +20,29 @@ use \Symfony\Component\HttpKernel\Exception\HttpException;
 class ArticleController extends CommonController
 {
 
-
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function show()
+    public function show(Request $request)
     {
-        $artList = Posts::getPublishList();
+        $title   = $request->input('title', null);
+        $artList = Posts::getPublishList(Posts::STATUS_PUBLISH, $title);
         $catList = (new Categories)->levelCatList();
-        return view('Admin/Article/show', ['artList' => $artList, 'catList' => $catList]);
+        return view('Admin/Article/show', ['artList' => $artList, 'catList' => $catList, 'title' => $title]);
     }
     /**
      * 草稿文件列表
      *
      * @return void
      */
-    public function draft()
+    public function draft(Request $request)
     {
-        $artList = Posts::getDraftList();
+        $title   = $request->input('title', null);
+        $artList = Posts::getPublishList(Posts::STATUS_DRAFT, $title);
         $catList = (new Categories)->levelCatList();
-        return view('Admin/Article/draft', ['artList' => $artList, 'catList' => $catList]);
+        return view('Admin/Article/draft', ['artList' => $artList, 'catList' => $catList, 'title' => $title]);
     }
     /**
      * create the new article 
@@ -54,16 +55,18 @@ class ArticleController extends CommonController
         $catList = (new Categories)->levelCatList(); // 获取前台所需要的层级分类列表
         if($request->isMethod('post') && $request->ajax())
         {
-            $post = $this->publicAddAndUpdate($request, $type = 'add'); // 调用公共的添加和修改方法
-            if(Posts::create($post))
+            // 验证标题的唯一性      
+            $this->validate($request, ['title'  => 'required|unique:posts|max:120']);
+            $post = $request->all();
+            $post['html'] = $post['markdown'];
+            if($res = Posts::create($post))
             {
                 return \App\Tools\ajax_success();
             }
             else
             {
                 return \App\Tools\ajax_error();
-            }  
-
+            }
         }
         return view('Admin/Article/add')->with('catList', $catList);
     }
@@ -86,6 +89,17 @@ class ArticleController extends CommonController
                 if(!$article = Posts::find($pid))
                 {
                     throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
+                }
+                if(!empty($status))
+                {
+                    if($article::where(['post_id' => $pid])->update(['status' => $status]))
+                    {
+                        return \App\Tools\ajax_success();
+                    }
+                    else
+                    {
+                        return \App\Tools\ajax_error();
+                    }
                 }
                 if($res = $article->delete())
                 {
@@ -117,12 +131,14 @@ class ArticleController extends CommonController
         {
             if($request->ajax() && $request->method('post'))
             {
+                // 验证
+                $this->validate($request, ['title'  => 'required|max:120']);
                 if(!$artFind)
                 {
-                    throw new HttpException(trans('common.none_record'));
+                    throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
                 }
-                // 调用公共的添加和修改的方法
-                $post = $this->publicAddAndUpdate($request, $type = 'update', $artFind);
+                $post = $request->except('_token');
+                $post['html'] = $post['markdown'];
                 $res  = Posts::where(['post_id' => $aid])->update($post); // 修改入库
                 if($res)
                 {
@@ -142,36 +158,6 @@ class ArticleController extends CommonController
         
     }
 
-    /**
-     * 公共的添加和修改操作数据
-     *
-     * @return void
-     */
-    protected function publicAddAndUpdate($request, $type, $artFind = '')
-    {
-        if($type == 'add')
-        {
-            // 验证
-            $this->validate($request, [
-                'title'  => 'required|unique:posts|max:120',
-                'slug'   => 'required|unique:posts|max:20',
-            ]);
-            $post = $request->all();
-            empty($post['image']) ? $post['image'] = '' : $post['image'] = $this->uploadFile($request);
-        }
-        else
-        {
-            // 验证
-            $this->validate($request, [
-                'title'  => 'required|max:120',
-                'slug'   => 'required|max:20',
-            ]);
-            $post = $request->except('_token');
-            empty($post['image']) ? $post['image'] = $artFind['image'] : $post['image'] = $this->uploadFile($request);
-        }
-        $post['html'] = $post['markdown'];
-        return $post;
-    }
 
     /**
      * 文件上传
