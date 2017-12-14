@@ -20,9 +20,12 @@ return [
      * Http 状态码
      * 
      */
+    'http_status_bad'      => '400', // 错误请求
+    'http_status_timeout'  => '408', // 请求超时
     'http_status_conflict' => '409', // 冲突状态码
     'http_status_grammar'  => '400', // 语法错误，服务器不识别
     'http_status_no_accept'=> '406', // 服务器不接受
+    'http_status_server_error'=> '500', // 服务器内部错误
 
     /** 每页展示条数 */
     'page_size'         => 2,

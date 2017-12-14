@@ -114,76 +114,82 @@
 	</footer>
 	<script type="text/javascript" src="/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/admin/static/h-ui/js/H-ui.min.js"></script>
-
 	<script type="text/javascript" src="lib/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
 	<script type="text/javascript" src="lib/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
+	<script type="text/javascript" src="/admin/lib/layer/2.4/layer.js"></script>
 	<script type="text/javascript">
+
 		$(function () {
-			$('#container').highcharts({
-				chart: {
-					type: 'column'
+			//加载层
+			var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+			$.ajax({
+				method:'get',
+				url:'/admin/welcome',
+				dataType:'JSON',
+				data:{'rand':Math.random()},
+				success:function(result){
+					drawingStatus(result);
+					layer.close(index);
 				},
-				title: {
-					text: '信息统计'
-				},
-				subtitle: {
-					text: '本站'
-				},
-				xAxis: {
-					categories: [
-						'一月',
-						'二月',
-						'三月',
-						'四月',
-						'五月',
-						'六月',
-						'七月',
-						'八月',
-						'九月',
-						'十月',
-						'十一月',
-						'十二月'
-					]
-				},
-				yAxis: {
-					min: 0,
+				error:function(data){
+                	var result = JSON.parse(data.responseText);
+                	// 非200请求，获取错误消息
+                	layer.msg(data.message,{icon:data.status});
+					layer.close(index);
+				}
+			})
+			
+
+			function drawingStatus(result)
+			{
+				console.log(result.data.series);
+				//return;
+				var data = result.data.series;
+				var month = result.data.month;
+					//return;
+				$('#container').highcharts({
+					chart: {
+						type: 'column'
+					},
 					title: {
-						text: 'Rainfall (mm)'
-					}
-				},
-				tooltip: {
-					headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-					pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-						'<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-					footerFormat: '</table>',
-					shared: true,
-					useHTML: true
-				},
-				plotOptions: {
-					column: {
-						pointPadding: 0.2,
-						borderWidth: 0
-					}
-				},
-				series: [{
-					name: '文章',
-					data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+						text: '信息统计'
+					},
+					subtitle: {
+						text: '本站'
+					},
+					xAxis: {
+						categories: month
+					},
+					yAxis: {
+						min: 0,
+						title: {
+							text: 'Rainfall (mm)'
+						}
+					},
+					tooltip: {
+						headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+						pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+							'<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+						footerFormat: '</table>',
+						shared: true,
+						useHTML: true
+					},
+					plotOptions: {
+						column: {
+							pointPadding: 0.2,
+							borderWidth: 0
+						}
+					},
+					series: data
+				});
+			}
 
-				}, {
-					name: '用户',
-					data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
 
-				}, {
-					name: '评论',
-					data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
 
-				}, {
-					name: '访客',
-					data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
-				}]
-			});
+			
 		});
+
+
 	</script>
 
 
