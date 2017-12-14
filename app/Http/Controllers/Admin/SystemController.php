@@ -11,15 +11,6 @@ class SystemController extends Controller
 {
 
     /**
-     * 柱状图
-     *
-     * @return void
-     */
-    public function bar()
-    {
-        return view('Admin/System/bar');
-    }
-    /**
      * 屏蔽词
      *
      * @author BING
