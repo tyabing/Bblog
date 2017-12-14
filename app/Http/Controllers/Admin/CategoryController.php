@@ -3,7 +3,7 @@
  * @Author: zhangtao 
  * @Date: 2017-12-08 19:29:53 
  * @Last Modified by: DingBing
- * @Last Modified time: 2017-12-14 10:28:48
+ * @Last Modified time: 2017-12-14 19:59:50
  */
 
 namespace App\Http\Controllers\Admin;
@@ -15,18 +15,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Validation\Validator;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
 
-class CategoryController extends Controller
+class CategoryController extends CommonController
 {
-    /**
-     * 验证失败返回格式自定义
-     *
-     * @param Validator $validator
-     * @return void
-     */
-    protected function formatValidationErrors(Validator $validator)
-    {
-        return \App\Tools\ajax_exception(\Config::get('constants.http_status_no_accept'),implode("\n",$validator->errors()->all()));
-    }
 
     /**
      * Create a new controller instance.

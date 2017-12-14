@@ -6,11 +6,10 @@ namespace App\Tools;
  * 
  * @Author: DingBing 
  * @Date: 2017-12-11 15:43:03 
- * @Last Modified by: zhangtao
- * @Last Modified time: 2017-12-11 17:35:47
+ * @Last Modified by: DingBing
+ * @Last Modified time: 2017-12-14 19:36:46
  */
 
-use \Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 /** 开发调试函数 */

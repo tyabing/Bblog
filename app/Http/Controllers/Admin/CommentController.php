@@ -6,23 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Config;
 use zgldh\QiniuStorage;
-use Illuminate\Contracts\Validation\Validator;
 use App\Comments;
 use App\Posts;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
-class CommentController extends Controller
+class CommentController extends CommonController
 {
-
-    /**
-     * 验证失败返回格式自定义-暂未使用
-     *
-     * @param Validator $validator
-     * @return void
-     */
-    protected function formatValidationErrors(Validator $validator)
-    {
-        return ['status'=>Config::get('constants.status_danger'),'message'=>implode("\n",$validator->errors()->all())];
-    }
 
     /**
      * Create a new controller instance.
