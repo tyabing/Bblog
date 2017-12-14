@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
-class NewsController extends Controller
+class NewsController extends HomeController
 {
 
 
@@ -14,7 +14,6 @@ class NewsController extends Controller
      */
     public function index()
     {
-    	$them=env('DEFAULT_THEM','Pithy');
-        return view('Themes/'.$them.'Home/news');
+        return view('Themes/'.$this->theme.'Home/news');
     }
 }
