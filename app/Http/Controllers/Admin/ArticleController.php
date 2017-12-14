@@ -132,9 +132,7 @@ class ArticleController extends CommonController
             if($request->ajax() && $request->method('post'))
             {
                 // 验证
-                $this->validate($request, [
-                    'title'  => 'required|max:120',
-                ]);
+                $this->validate($request, ['title'  => 'required|max:120']);
                 if(!$artFind)
                 {
                     throw new HttpException(\Config::get('constants.http_status_no_accept'),trans('common.none_record'));
