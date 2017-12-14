@@ -13,9 +13,11 @@ class Comments extends Model
      *
      * @return void
      */
-    public function getList($where=array())
+    static public function getList($where=array())
     {
-        return $this->where($where)->orderBy('parent_id','asc')->paginate(Config::get('constants.page_size'));
+        $result = self::where($where)->orderBy('parent_id','asc')->paginate(Config::get('constants.page_size'));
+        
+        return $result;
     }
     /** 
      * 有条件查询

@@ -2,22 +2,64 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Config;
-use zgldh\QiniuStorage;
 use App\Comments;
 use App\Posts;
+use Illuminate\Http\Request;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
 class CommentController extends CommonController
 {
 
     /**
-     * Create a new controller instance.
+     * 评论列表展示
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function show(Request $request)
+    {
+        if($request->isMethod('get'))
+        {
+            $result = $this->getFilter($request);
+        }
+        $comments = Comments::getList($result['map']);       
+        return view('Admin/Comment/show')->with('comments',$comments)->with('search',$result['search']);
+    }
+
+    /**
+     * 处理评论搜索条件
+     *
+     * @param object $request
+     * @return void
+     */
+    private function getFilter($request)
+    {
+        $map = [];          // DB使用
+        $search = [];       // 原搜索条件
+        $search['title'] = $request->input('title',null);
+        $search['start'] = $request->input('start',null);
+        $search['end'] = $request->input('end',null);
+        if(isset($search['title']) && !empty(trim($search['title'])))
+        {
+            $map[] = ['content','like',"%$search[title]%"];
+        }
+        if(isset($search['start']) && !empty($search['start']))
+        {
+            $map[] = ['created_at','>=',$search['start']];
+        }
+        if(isset($search['end']) && !empty($search['end']))
+        {
+            $map[] = ['created_at','<=',$search['end']];
+        }
+        return ['map'=>$map,'search'=>$search];
+    }
+
+    /**
+     * 待删除
      * 
      * @return void
      */
-    public function show(Request $req)
+    public function show2(Request $req)
     {
         try
         {
@@ -35,29 +77,32 @@ class CommentController extends CommonController
             //开始时间
             $where[]=$req->has('start')?array('created_at','>',$req->start):NULL;
             $find['start']=$req->has('start')?$req->start:NULL;
-            //结束时间
-            if($req->has('start')){
-                $where[]=$req->has('end')?array('created_at','<',$req->end):array('created_at','<',date('Y-m-d',time()));
-                $find['end']=$req->has('end')?$req->end:date('Y-m-d',time());
-            }else{
-                $where[]=$req->has('end')?array('created_at','<',$req->end):NULL;
-                $find['end']=$req->has('end')?$req->end:NULL;
-            }
+            //结束时间           
+            $where[]=$req->has('end')?array('created_at','<',$req->end):NULL;
+            $find['end']=$req->has('end')?$req->end:NULL;
+            
             $where=array_filter($where);
-
+            echo '<pre>';
+            print_r($where);die;
             //查询评论
             $ment=(new Comments)->getList($where);
-            $ments=json_decode(json_encode($ment));
-            //查找对应的文章
-            $mentData=(new Posts)->getPost($ments->data);
-            $mentList=(new Comments)->getCommentList($mentData);
+            
+            $mentList=array();
+            if($ment)
+            {
+                $ments=json_decode(json_encode($ment));
+                //查找对应的文章
+                $mentData=(new Posts)->getPost($ments->data);
+                $mentList=(new Comments)->getCommentList($mentData);               
+            }
+            
             return view('Admin/Comment/show')->with('mentList',$mentList)
                                              ->with('find',$find)
                                              ->with('ment',$ment);
         }
         catch(\Exception $e)
         {
-            return \App\Tools\ajax_exception($e->getStatusCode(), $e->getMessage());
+           echo $e->getMessage(); 
         }
         
         
