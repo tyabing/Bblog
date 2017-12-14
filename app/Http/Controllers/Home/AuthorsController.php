@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
-class AuthorsController extends Controller
+class AuthorsController extends HomeController
 {
 
 
@@ -14,7 +14,6 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-    	$them=env('DEFAULT_THEM','Pithy');
-        return view('Themes/'.$them.'Home/authors_detail');
+        return view('Themes/'.$this->theme.'Home/authors_detail');
     }
 }

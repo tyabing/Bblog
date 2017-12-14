@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AdminsController extends Controller
+class AdminsController extends CommonController
 {
   //登陆
    public function login(){

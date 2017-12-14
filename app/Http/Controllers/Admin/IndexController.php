@@ -3,7 +3,7 @@
  * @Author: DingBing 
  * @Date: 2017-12-14 11:47:40 
  * @Last Modified by: DingBing
- * @Last Modified time: 2017-12-14 15:46:18
+ * @Last Modified time: 2017-12-14 19:58:24
  */
 
 namespace App\Http\Controllers\Admin;
@@ -12,7 +12,7 @@ use \Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
 
-class IndexController extends Controller
+class IndexController extends CommonController
 {
 
 

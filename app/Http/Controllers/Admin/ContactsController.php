@@ -5,21 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Validation\Validator;
 use \Symfony\Component\Console\Input\Input;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
-class ContactsController extends Controller
+class ContactsController extends CommonController
 {
-     /**
-     * 验证失败返回格式自定义-暂未使用
-     *
-     * @param Validator $validator
-     * @return void
-     */
-    protected function formatValidationErrors(Validator $validator)
-    {
-        return \App\Tools\ajax_exception(\Config::get('constants.http_status_no_accept'),implode("\n",$validator->errors()->all()));
-    }
+
 
     //展示页面
     public function show(Request $request){

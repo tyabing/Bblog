@@ -6,10 +6,11 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> {{trans('common.home')}} <span class="c-gray en">&gt;</span> {{trans('article.show_header')}} <span class="c-gray en">&gt;</span> {{trans('article.show_title')}} <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="{{trans('common.refresh')}}" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
+<form action="" method="get">
 		<button onclick="removeIframe()" class="btn btn-primary radius">{{trans('article.show_close_select')}}</button>
 	 <span class="select-box inline">
 		<select name="" class="select">
-			<option value="">全部分类</option>
+			<option value="">{{trans('article.add_cat_id')}}</option>
 			@if(!empty($catList))
 			@foreach($catList as $key => $val)
 				<option value="{{$key}}">{{$val}}</option>
@@ -20,11 +21,12 @@
 		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
 		-
 		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;">
-		<input type="text" name="keyword" id="keyword" placeholder=" {{trans('article.show_search')}}" style="width:250px" class="input-text">
-		<button name="" id="search" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> {{trans('common.form_search')}}</button>
+		<input type="text" name="title" value="{{$title}}" placeholder=" {{trans('article.show_search')}}" style="width:250px" class="input-text">
+		<button name="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> {{trans('common.form_search')}}</button>
+</form>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a> 
+		<!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a>  -->
 		<a class="btn btn-primary radius" data-title="{{trans('article.add_header')}}" data-href="/article/add" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> {{trans('article.show_now_create')}}</a></span> 
 		<span class="r">{{trans('common.total_count')}}：<strong>{{$artList->count()}}</strong> {{trans('common.item')}}</span> 
 	</div>
@@ -33,11 +35,10 @@
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="80">ID</th>
 					<th>{{trans('article.show_list_title')}}</th>
 					<th width="80"> {{trans('article.show_list_category')}}</th>
 					<th width="80"> {{trans('article.show_list_author')}}</th>
-					<th width="120">{{trans('article.show_list_create_at')}}</th>
+					<th width="200">{{trans('article.show_list_create_at')}}</th>
 					<th width="75"> {{trans('article.show_list_read_num')}}</th>
 					<th width="60"> {{trans('article.show_list_status')}}</th>
 					<th width="120">{{trans('common.do')}}</th>
@@ -48,7 +49,6 @@
 					@foreach($artList as $key => $val)
 						<tr class="text-c">
 							<td><input type="checkbox" value="" name=""></td>
-							<td>{{$val->post_id}}</td>
 							<td class="text-l">{{$val->title}}</td>
 							<td>{{$val->cat->cat_name}}</td>
 							<td>{{$val->author}}</td>
@@ -71,7 +71,7 @@
 			</tbody>
 		</table>
 		<div class="r">
-				{{$artList->appends(['title'])->links()}}
+				{{$artList->appends(['title' => $title])->links()}}
 		</div>
 	</div>
 </div>
