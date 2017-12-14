@@ -101,6 +101,12 @@ Route::group(['prefix' => 'Contacts'], function () {
     // 状态显示状态切换
     Route::get('/switch','Admin\ContactsController@switchIsNewOpen');
 });
+// 后台admin（个人中心）
+Route::group(['prefix' => 'AdminUsers'],function(){
+    // 个人中心
+    Route::any('/information','Admin\AdminUsersController@user_information');
+
+});
 // 登陆
 Route::group(['prefix' => 'Login'], function () {
         // 登陆
