@@ -5,6 +5,7 @@
 			<dd>
 				<ul>
 					<li><a data-href="/article/show"   data-title="创作列表" href="javascript:void(0)">创作列表</a></li>
+					<li><a data-href="/article/draft"  data-title="草稿箱"   href="javascript:void(0)">草稿箱</a></li>
 					<li><a data-href="/category/show"  data-title="栏目管理" href="javascript:void(0)">分类栏目</a></li>
 				</ul>
 			</dd>
@@ -32,7 +33,7 @@
 			<dd>
 				<ul>
 					<li><a data-href="/comment/show" data-title="评论列表" href="javascript:;">评论列表</a></li>
-					<li><a data-href="/note/show" data-title="意见反馈" href="javascript:void(0)">留言列表</a></li>
+					<li><a data-href="/Contacts/message" data-title="意见反馈" href="javascript:void(0)">留言列表</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -59,21 +60,8 @@
 					<li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
 				</ul>
 			</dd>
-		</dl> -->
-		<dl id="menu-tongji">
-			<dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<!-- <li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">折线图</a></li>
-					<li><a data-href="charts-2.html" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li>
-					<li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">区域图</a></li> -->
-					<li><a data-href="/system/bar" data-title="柱状图" href="javascript:void(0)">柱状图</a></li>
-					<!-- <li><a data-href="charts-5.html" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>
-					<li><a data-href="charts-6.html" data-title="3D柱状图" href="javascript:void(0)">3D柱状图</a></li>
-					<li><a data-href="charts-7.html" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li> -->
-				</ul>
-			</dd>
-		</dl>
+		</dl> 
+		-->
 		<dl id="menu-system">
 			<dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -82,7 +70,7 @@
 					<li><a data-href="/system/setting" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>
 					<!-- <li><a data-href="system-category.html" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li> -->
 					<!-- <li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li> -->
-					<li><a data-href="/system/shielding" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>
+<!--					<li><a data-href="/system/shielding" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>-->
 					<!-- <li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li> -->
 				</ul>
 			</dd>

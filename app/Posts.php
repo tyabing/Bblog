@@ -2,8 +2,8 @@
 /*
  * @Author: zhangtao 
  * @Date: 2017-12-04 15:55:48 
- * @Last Modified by: zhangtao
- * @Last Modified time: 2017-12-08 22:12:17
+ * @Last Modified by: DingBing
+ * @Last Modified time: 2017-12-14 10:26:26
  */
 namespace App;
 
@@ -15,36 +15,42 @@ use Illuminate\Http\Request;
 
 class Posts extends Model
 {
-    protected $fillable = ['title','cat_id','excerpt','author','is_allow','is_page','markdown','image','slug'];
+    const STATUS_PUBLISH = 'PUBLISH'; // 已发布
+    const STATUS_DRAFT   = 'DRAFT';   // 草稿
+    protected $primaryKey = 'post_id';
+    protected $fillable = ['title','cat_id','excerpt','author','status','is_allow','is_page','markdown','html','image','slug'];
     /**
      * get article list info
      *
      * @return void
      */
-    public function getList()
+    static public function getPublishList()
     {
-        return $this->select()->get();
+        return self::select('post_id','title','author','cat_id','read_num','updated_at','status')
+            ->where(['status' => self::STATUS_PUBLISH])
+            ->orderBy('post_id', 'desc')
+            ->paginate(Config::get('constants.page_size'));
     }
     /**
-     * 获取一条
-     * @param  [type] $where [description]
-     * @return [type]        [description]
+     * 获取文章草稿列表
+     *
+     * @return void
      */
-    public function getOne($where){
-        return $this->select('title')->where(['post_id'=>$where])->first()->toArray();
+    static public function getDraftList()
+    {
+        return self::select('post_id','title','author','cat_id','read_num','updated_at','status')
+            ->where(['status' => self::STATUS_DRAFT])
+            ->orderBy('post_id', 'desc')
+            ->paginate(Config::get('constants.page_size'));
     }
     /**
-     * 获取对应的文章名称
-     * @param  [type] $data [description]
-     * @return [type]       [description]
+     * 分类的关联
+     *
+     * @return void
      */
-    public function getPost($data)
+    public function cat()
     {
-        foreach ($data as $key => $value) {
-            $title=$this->getOne($value['post_id']);
-            $data[$key]['title']=$title['title'];
-        }
-        return $data;        
+        return $this->belongsTo('App\Categories', 'cat_id', 'cat_id');
     }
 
    

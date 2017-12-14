@@ -1,6 +1,6 @@
 @include('Admin.Common._meta')
 
-<title>栏目设置</title>
+<title>{{trans('category.add_title')}}</title>
 </head>
 <body>
 <div class="page-container">
@@ -11,11 +11,11 @@
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-3">
 						<span class="c-red">*</span>
-						上级栏目：</label>
+						{{trans('category.add_prev')}}：</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<span class="select-box">
 						<select class="select" id="sel_Sub" name="parent_id" onchange="SetSubID(this);">
-							<option value="0">顶级分类</option>
+							<option value="0">{{trans('category.add_top')}}</option>
 							<?php foreach($catList as $key => $val): ?>
 								<option value="<?= $key?>"><?= $val?></option>
 							<?php endforeach; ?>
@@ -28,7 +28,7 @@
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-3">
 						<span class="c-red">*</span>
-						分类名称：</label>
+						{{trans('category.add_cat_name')}}：</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<input type="text" class="input-text" value="" placeholder="" id="cat_name" name="cat_name">
 					</div>
@@ -36,9 +36,9 @@
 					</div>
 				</div>
 				<div class="row cl">
-					<label class="form-label col-xs-4 col-sm-3">描述：</label>
+					<label class="form-label col-xs-4 col-sm-3">{{trans('category.add_desc')}}：</label>
 					<div class="formControls col-xs-8 col-sm-9">
-						<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...可忽略" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+						<textarea name="" cols="" rows="" class="textarea"  placeholder="{{trans('category.add_cat_desc')}}" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,100)"></textarea>
 						<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
 					</div>
 					<div class="col-3">
@@ -49,7 +49,7 @@
 		</div>
 		<div class="row cl">
 			<div class="col-9 col-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;{{trans('common.form_submit')}}&nbsp;&nbsp;">
 			</div>
 		</div>
 	</form>
@@ -88,11 +88,12 @@ $(function(){
 				type: 'post',
 				url: "/category/add",
 				success: function (data) {
-					layer.msg(data.message, {'icon':data.status});
+					layer.msg(data.message, {icon:data.status});
+					parent.window.location.reload();
 				},
 				error: function (data) {
 					var result = JSON.parse(data.responseText);
-					layer.msg(result.message,{'icon':result.status});
+					layer.msg(result.message,{icon:result.status});
 				}
 			});
 			// var index = parent.layer.getFrameIndex(window.name);

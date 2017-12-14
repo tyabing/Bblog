@@ -2,8 +2,8 @@
 /*
  * @Author: zhangtao 
  * @Date: 2017-12-07 21:19:37 
- * @Last Modified by: zhangtao
- * @Last Modified time: 2017-12-07 21:26:47
+ * @Last Modified by: DingBing
+ * @Last Modified time: 2017-12-14 10:29:31
  */
 
 return [
@@ -17,7 +17,7 @@ return [
             'access_key' => 'Z3d8_OrnyWSfGaYmA0e82QZ5hazwPc4ieHimShmp',
             'secret_key' => 'xcyIoVUgflrEqVH_LN80CMRvUUZi6iZSd_QANUU8',
             'bucket'     => 'bblog',
-            'prefix'     => date('Ymd').'/', //文件前缀 file/of/path
+            'prefix'     => '',//文件前缀 file/of/path
             'domain'     => 'http://p0len7s39.bkt.clouddn.com' //七牛自定义域名
         ],
         "aliyun" => [

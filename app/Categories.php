@@ -2,8 +2,8 @@
 /*
  * @Author: zhangtao 
  * @Date: 2017-12-04 15:23:26 
- * @Last Modified by: zhangtao
- * @Last Modified time: 2017-12-07 17:09:49
+ * @Last Modified by: DingBing
+ * @Last Modified time: 2017-12-14 10:25:17
  */
 
 namespace App;
@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categories extends Model
 {
     const PARENTID = 0;
+    protected $primaryKey = 'cat_id';
     /**
      * 获取所有分类信息
      *
@@ -20,7 +21,7 @@ class Categories extends Model
      */
     public function getList()
     {
-        return $this->select()->where(['parent_id' => self::PARENTID])->get();
+        return $this->select('cat_id', 'cat_name')->get()->toArray();
     }
     /**
      * 添加操作
@@ -75,6 +76,7 @@ class Categories extends Model
     {
         $arr = [];
         $catList = self::recursion($data);
+        
         foreach($catList as $key => $val)
         {
             $arr[$val['cat_id']] = str_repeat("　　|", $val['level']).$val['cat_name'];
