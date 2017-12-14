@@ -58,7 +58,7 @@ class Posts extends Model
      * @return [type]        [description]
      */
     public function getOne($where){
-        return $this->select('title')->where(['post_id'=>$where])->first()->toArray();
+        return $this->select()->where($where)->first();
     }
     /**
      * 获取对应的文章名称
@@ -68,8 +68,8 @@ class Posts extends Model
     public function getPost($data)
     {
         foreach ($data as $key => $value) {
-            $title=$this->getOne($value['post_id']);
-            $data[$key]['title']=$title['title'];
+            $title=$this->getOne(['post_id'=>$value->post_id]);
+            $data[$key]->title=$title->title;
         }
         return $data;        
     }
