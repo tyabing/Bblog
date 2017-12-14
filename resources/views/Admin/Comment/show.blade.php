@@ -13,32 +13,36 @@
 <div class="page-container">
 	<div class="text-c">
 		<form action="" method="get">
-		 <span class="select-box inline">
-			</span> {{trans('common.date_range')}}
-			<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;" name="start" value="{{$find['start']}}">
+		 	{{trans('common.date_range')}}
+			<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;" name="start" value="@if(isset($search['start'])) {{$search['start']}}@endif">
 			-
-			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;" name="end" value="{{$find['end']}}">
-			<input type="text" name="title" id="" placeholder="{{trans('comment.posts_name')}}" style="width:250px" class="input-text" value="{{$find['title']}}">
+			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;" name="end" value="@if(isset($search['end'])) {{$search['end']}}@endif">
+			<input type="text" name="title" id="" placeholder="{{trans('comment.posts_name')}}" style="width:250px" class="input-text" value="@if(isset($search['title'])) {{$search['title']}}@endif">
 			<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> {{trans('comment.find_comment')}}</button>
 		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="batch_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> {{trans('common.batch_delete')}}</a> <span class="r">{{trans('common.total_count')}}：<strong></strong> {{trans('common.item')}}</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+
+		<span class="l">
+		</span>
+		<span class="r">{{trans('common.total_count')}}：<strong>{{$comments->total()}}</strong> {{trans('common.item')}}</span>
+</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="25"><input type="checkbox" disabled></th>
-					<th>{{trans('comment.comment_content')}}</th>
-					<th width="100">{{trans('comment.belong_post')}}</th>
-					<th width="100">IP</th>
-					<th width="75">email</th>
-					<th width="125">{{trans('common.created_at')}}</th>
-					<th width="100">{{trans('common.do')}}</th>
+					<th width="5"><input type="checkbox" disabled></th>
+					<th width="25">{{trans('comment.comment_content')}}</th>
+					<th width="15">{{trans('comment.belong_post')}}</th>
+					<th width="15">IP</th>
+					<th width="15">email</th>
+					<th width="15">{{trans('common.created_at')}}</th>
+					<th width="10">{{trans('common.do')}}</th>
 				</tr>
 			</thead>
 			<tbody>
-			@if(!empty($mentList))
-			@foreach($mentList as $key => $obj)
+			@if(!empty($comments))
+			@foreach($comments as $key => $obj)
 				<tr class="text-c">
 					<td><input type="checkbox" name="com_id[]" value="{{$key}}"></td>
 					<td class="text-l">{{$obj['content']}}</td>
@@ -59,7 +63,7 @@
 			</tbody>
 		</table>
 		 <div class="r">
-            {{$ment->appends(['title'=>$find['title'],'start'=>$find['start'],'end'=>$find['end']])->links()}}        
+                {{$comments->appends(['title'=>$search['title'],'start'=>$search['start'],'end'=>$search['end']])->links()}}    
         </div>
 	</div>
 </div>
