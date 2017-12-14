@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
-class IndexController extends Controller
+class IndexController extends HomeController
 {
 
 
@@ -14,7 +14,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-    	$them=env('DEFAULT_THEM','Pithy');
-        return view('Themes/'.$them.'Home/index');
+
+        return view('Themes/'.$this->theme.'Home/index');
     }
 }

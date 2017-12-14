@@ -26,6 +26,7 @@ Route::get('/authors','Home\AuthorsController@index');
 Route::get('/admin/index','Admin\IndexController@index');
 // 后台welcome
 Route::get('/admin/welcome','Admin\IndexController@welcome');
+
 // 后台article
 Route::group(['prefix' => 'article'], function () {
 	// 文章列表
@@ -54,8 +55,7 @@ Route::group(['prefix' => 'category'], function () {
 });
 // 后台system
 Route::group(['prefix' => 'system'], function () {
-	// 柱状图
-    Route::get('/bar','Admin\SystemController@bar');
+
     // 系统设置
     Route::get('/setting','Admin\SystemController@setting');
     
@@ -121,9 +121,9 @@ Route::group(['prefix' => 'Login'], function () {
 Route::group(['prefix' => 'comment'], function(){
     // 评论列表
     Route::match(['get', 'post'],'/show', 'Admin\CommentController@show');
+    //评论删除
     Route::post('/del', 'Admin\CommentController@del');
-    // // 图库添加
-    // Route::get('/add', 'Admin\GalleriesController@add');
-    
+    //评论回复
+    Route::match(['get', 'post'],'/replay/{id?}', 'Admin\CommentController@replay');    
 });
 
