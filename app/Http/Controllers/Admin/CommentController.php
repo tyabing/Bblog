@@ -9,6 +9,7 @@ use zgldh\QiniuStorage;
 use Illuminate\Contracts\Validation\Validator;
 use App\Comments;
 use App\Posts;
+use \Symfony\Component\HttpKernel\Exception\HttpException;
 class CommentController extends Controller
 {
 
@@ -35,7 +36,7 @@ class CommentController extends Controller
         $ment=(new Comments)->getList();
         //查找对应的文章
         $mentData=(new Posts)->getPost($ment);
-        $mentList=(new Comments)->getCommentList($mentData);        
+        $mentList=(new Comments)->getCommentList($mentData); 
         return view('Admin/Comment/show')->with('mentList',$mentList);
     }
     /**
@@ -44,25 +45,36 @@ class CommentController extends Controller
      * @return [type]       [description]
      */
     public function del(Request $req){
-       $com_id=$req->com_id;
-       $level=$req->level;
-       $del_ids=array();
-       if($level==0){
-        //删除该评论下的所有留言
-            $ids=(new Comments)->getWhere($com_id);
-            foreach ($ids as $key => $value) {
-                $del_ids[]=$value['com_id'];
+
+        try
+        {
+            if($req->ajax() && $req->isMethod('post'))
+            {
+                $com_id = $req->input('com_id');
+                $level = $req->input('level');
+                $del_ids=array();
+                if($level==0){
+                //删除该评论下的所有留言
+                    $ids=(new Comments)->getWhere($com_id);
+                    foreach ($ids as $key => $value) {
+                        $del_ids[]=$value['com_id'];
+                    }
+                    $del_ids[].=$com_id;
+                }else{
+                     $del_ids[]=$com_id;
+                }
+                //删除评论
+                $result=(new Comments)->delWhere($del_ids);
+                if(!$result){
+                    return \App\Tools\ajax_error();
+                }
+                return \App\Tools\ajax_success();
             }
-            $del_ids[].=$com_id;
-       }else{
-             $del_ids[]=$com_id;
-       }
-       //删除评论
-       $result=(new Comments)->delWhere($del_ids);
-       if(!$result){
-            echo json_encode(0);die;
-       }
-       echo json_encode(1);
+        }
+        catch(\Exception $e)
+        {
+            return \App\Tools\ajax_exception($e->getStatusCode(), $e->getMessage());
+        }            
        
     }
 

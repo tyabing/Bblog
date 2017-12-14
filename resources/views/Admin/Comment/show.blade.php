@@ -31,7 +31,7 @@
 					<th width="100">所属文章</th>
 					<th width="100">IP</th>
 					<th width="75">email</th>
-					<th width="50">评论时间</th>
+					<th width="125">评论时间</th>
 					<th width="100">操作</th>
 				</tr>
 			</thead>
@@ -84,19 +84,20 @@
 function comment_del(obj,id,level){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
-			type: 'GET',
+			type: 'POST',
 			url: '/comment/del',
-			data:'com_id='+id+'&level='+level,
+			data:{'_token':"{{ csrf_token() }}",'com_id':id,'level':level},
 			dataType: 'json',
 			success: function(data){
-				alert(data);
-				if(data==1){
-					$(obj).parents("tr").remove();
-					layer.msg('已删除!',{icon:1,time:1000});
-				}else{
-					console.log(data.msg);
-				}
+				$(obj).parents("tr").remove();
+				layer.msg(data.message,{icon:data.status});
+				window.location.reload();
+			},
+			error:function(data) {
 				
+                var result = JSON.parse(data.responseText);
+                // 非200请求，获取错误消息
+                layer.msg(data.message,{icon:data.status});				
 			},
 		});		
 	});

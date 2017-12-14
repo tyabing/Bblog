@@ -52,6 +52,27 @@ class Posts extends Model
     {
         return $this->belongsTo('App\Categories', 'cat_id', 'cat_id');
     }
+    /**
+     * 获取一条
+     * @param  [type] $where [description]
+     * @return [type]        [description]
+     */
+    public function getOne($where){
+        return $this->select('title')->where(['post_id'=>$where])->first()->toArray();
+    }
+    /**
+     * 获取对应的文章名称
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function getPost($data)
+    {
+        foreach ($data as $key => $value) {
+            $title=$this->getOne($value['post_id']);
+            $data[$key]['title']=$title['title'];
+        }
+        return $data;        
+    }
 
    
 
