@@ -3,7 +3,7 @@
  * @Author: zhangtao 
  * @Date: 2017-12-11 16:29:53 
  * @Last Modified by: DingBing
- * @Last Modified time: 2017-12-14 10:27:09
+ * @Last Modified time: 2017-12-14 20:01:45
  */
 
 namespace App\Http\Controllers\Admin;
@@ -15,22 +15,11 @@ use zgldh\QiniuStorage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \Symfony\Component\Console\Input\Input;
-use Illuminate\Contracts\Validation\Validator;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
 
-class ArticleController extends Controller
+class ArticleController extends CommonController
 {
 
-    /**
-     * 验证失败返回格式自定义-暂未使用
-     *
-     * @param Validator $validator
-     * @return void
-     */
-    protected function formatValidationErrors(Validator $validator)
-    {
-        return \App\Tools\ajax_exception(\Config::get('constants.http_status_no_accept'),implode("\n",$validator->errors()->all()));
-    }
 
     /**
      * Create a new controller instance.

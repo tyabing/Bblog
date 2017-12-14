@@ -3,27 +3,17 @@
  * @Author: DingBing 
  * @Date: 2017-12-11 15:49:44 
  * @Last Modified by: DingBing
- * @Last Modified time: 2017-12-11 15:53:22
+ * @Last Modified time: 2017-12-14 19:56:56
  */
 namespace App\Http\Controllers\Admin;
 use Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Validation\Validator;
 use \Symfony\Component\Console\Input\Input;
 use \Symfony\Component\HttpKernel\Exception\HttpException;
-class NavigateController extends Controller
+class NavigateController extends CommonController
 {
-    /**
-     * 验证失败返回格式自定义
-     *
-     * @param Validator $validator
-     * @return void
-     */
-    protected function formatValidationErrors(Validator $validator)
-    {
-        return \App\Tools\ajax_exception(\Config::get('constants.http_status_no_accept'),implode("\n",$validator->errors()->all()));
-    }
+
     /**
      * 导航列表展示
      *

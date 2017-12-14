@@ -7,7 +7,7 @@ use App\Admins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AdminUsersController extends Controller
+class AdminUsersController extends CommonController
 {
     //个人信息
     public function user_information(Request $request)
