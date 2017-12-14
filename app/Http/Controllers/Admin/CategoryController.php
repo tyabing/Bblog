@@ -2,8 +2,8 @@
 /*
  * @Author: zhangtao 
  * @Date: 2017-12-08 19:29:53 
- * @Last Modified by: zhangtao
- * @Last Modified time: 2017-12-08 19:44:25
+ * @Last Modified by: DingBing
+ * @Last Modified time: 2017-12-14 10:28:48
  */
 
 namespace App\Http\Controllers\Admin;
@@ -138,7 +138,5 @@ class CategoryController extends Controller
         }
         return view('Admin/Category/update', ['catFind' => $catFind, 'catList' => $catList]);
     }
-
-
 
 }

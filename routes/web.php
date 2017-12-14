@@ -110,3 +110,14 @@ Route::group(['prefix' => 'Login'], function () {
         //退出
         Route::get('/sign','Admin\AdminsController@sign');
 });
+
+// 后台omment
+Route::group(['prefix' => 'comment'], function(){
+    // 图库列表
+    Route::match(['get', 'post'],'/show', 'Admin\CommentController@show');
+    Route::get('/del', 'Admin\CommentController@del');
+    // // 图库添加
+    // Route::get('/add', 'Admin\GalleriesController@add');
+    
+});
+

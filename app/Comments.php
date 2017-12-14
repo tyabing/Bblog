@@ -1,19 +1,13 @@
 <?php
-/*
- * @Author: zhangtao 
- * @Date: 2017-12-04 15:23:26 
- * @Last Modified by: DingBing
- * @Last Modified time: 2017-12-14 10:25:17
- */
 
 namespace App;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Categories extends Model
+class Comments extends Model
 {
+	protected $primaryKey='com_id';//表的主键 
     const PARENTID = 0;
-    protected $primaryKey = 'cat_id';
     /**
      * 获取所有分类信息
      *
@@ -21,7 +15,25 @@ class Categories extends Model
      */
     public function getList()
     {
-        return $this->select('cat_id', 'cat_name')->get()->toArray();
+        return $this->select()->get()->toArray();
+    }
+    /** 
+     * 有条件查询
+     * @param  [type] $where [description]
+     * @return [type]        [description]
+     */
+    public function getWhere($where)
+    {
+    	return $this->select('com_id')->where(['parent_id'=>$where])->get()->toArray();
+    }
+    /** 
+     * 有条件删除
+     * @param  [type] $where [description]
+     * @return [type]        [description]
+     */
+    public function delWhere($where)
+    {
+    	return $this->whereIn('com_id',$where)->delete();
     }
     /**
      * 添加操作
@@ -56,11 +68,11 @@ class Categories extends Model
         foreach($data as $key => $val)
         {
             //判断当前父id是否和获取到的一致
-            if($val['parent_id'] == $parentId && $val['cat_id'] != $exclude)
+            if($val['parent_id'] == $parentId && $val['com_id'] != $exclude)
             {
                 $val['level'] = $level;
                 $arr[] = $val;
-                self::recursion($data, $exclude, $val['cat_id'], $level+1);
+                self::recursion($data, $exclude, $val['com_id'], $level+1);
             }
         }
         return $arr;
@@ -72,14 +84,21 @@ class Categories extends Model
      * @param array $data
      * @return void
      */
-    static public function getCategoryList($data = [])
+    static public function getCommentList($data = [])
     {
         $arr = [];
         $catList = self::recursion($data);
-        
         foreach($catList as $key => $val)
         {
-            $arr[$val['cat_id']] = str_repeat("　　|", $val['level']).$val['cat_name'];
+        	$arr[$val['com_id']]['content'] =$val['nickname']."评论：".$val['content'];
+        	if($val['level']!=0){        		
+        		$arr[$val['com_id']]['content'] = str_repeat("　　$val[nickname]回复：", $val['level']).$val['content'];
+        	}
+        	$arr[$val['com_id']]['created_at']=$val['created_at'];
+        	$arr[$val['com_id']]['ip']=$val['ip'];
+        	$arr[$val['com_id']]['email']=$val['email'];
+        	$arr[$val['com_id']]['title']=$val['title'];
+        	$arr[$val['com_id']]['level']=$val['level'];            
         }
         return $arr;
     }
