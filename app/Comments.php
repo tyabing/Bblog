@@ -15,7 +15,7 @@ class Comments extends Model
      */
     public function getList($where=array())
     {
-        return $this->where($where)->paginate(Config::get('constants.page_size'));
+        return $this->where($where)->paginate(1);
     }
     /** 
      * 有条件查询

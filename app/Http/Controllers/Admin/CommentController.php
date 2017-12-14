@@ -33,7 +33,7 @@ class CommentController extends Controller
     {
         try
         {
-            $where=array();
+            $where=array(); 
             $find=['title'=>'','start'=>'','end'=>''];
 
             //搜索条件
