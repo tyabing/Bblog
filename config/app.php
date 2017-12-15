@@ -178,8 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Chenhua\MarkdownEditor\MarkdownEditorServiceProvider::class,
         zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
-
-        
+        //laravel-debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -229,6 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'MarkdownEditor' => Chenhua\MarkdownEditor\Facades\MarkdownEditor::class,
+         //laravel-debugbar
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
